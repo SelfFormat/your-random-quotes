@@ -1,4 +1,4 @@
-package com.example.yourrandomquote
+package com.selfformat.yourrandomquote
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

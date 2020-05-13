@@ -1,4 +1,4 @@
-package com.example.yourrandomquote
+package com.selfformat.yourrandomquote
 
 import org.junit.Test
 

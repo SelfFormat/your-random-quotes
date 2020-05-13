@@ -1,4 +1,4 @@
-package com.example.yourrandomquote.domain
+package com.selfformat.yourrandomquote.domain
 
 data class Author(
     val firstName: String,
