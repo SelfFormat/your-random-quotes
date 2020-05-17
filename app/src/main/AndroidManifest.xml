@@ -12,16 +12,16 @@
         <activity android:name="com.selfformat.yourrandomquote.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <receiver android:name="QuoteWidget" >
+        <receiver android:name="com.selfformat.yourrandomquote.QuoteWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/quote_widget_provider" />
         </receiver>
     </application>

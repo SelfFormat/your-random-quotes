@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- TODO: Change it to an icon-->
     <Button
         android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="refresh"/>
-    <!-- Check auto-size to bounds: https://stackoverflow.com/questions/5033012/auto-scale-textview-text-to-fit-within-bounds-->
+
+    <!-- TODO: Check auto-size to bounds: https://stackoverflow.com/questions/5033012/auto-scale-textview-text-to-fit-within-bounds-->
+    <!-- TODO: Add class to change look randomly with fonts and colours -->
     <TextView
         android:id="@+id/quote"
         android:layout_width="match_parent"
@@ -19,4 +22,4 @@
         android:textSize="24sp"
         />
 
-</RelativeLayout>
+</FrameLayout>
