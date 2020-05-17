@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="refresh"/>
+    <!-- Check auto-size to bounds: https://stackoverflow.com/questions/5033012/auto-scale-textview-text-to-fit-within-bounds-->
+    <TextView
+        android:id="@+id/quote"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="test"
+        android:gravity="center"
+        android:textSize="24sp"
+        />
+
+</RelativeLayout>
