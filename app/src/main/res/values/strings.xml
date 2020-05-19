@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Your Random Quote</string>
+    <string name="refresh">Refresh</string>
+    <string name="quote_placeholder">Random quote here</string>
 </resources>
