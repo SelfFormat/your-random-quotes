@@ -1,4 +1,4 @@
-package com.selfformat.yourrandomquote
+package com.selfformat.yourrandomquote.widget
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -6,6 +6,8 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
+import com.selfformat.yourrandomquote.MainActivity
+import com.selfformat.yourrandomquote.R
 
 class QuoteWidget : AppWidgetProvider() {
 
@@ -15,11 +17,16 @@ class QuoteWidget : AppWidgetProvider() {
         appWidgetIds: IntArray
     ) {
         for (appWidgetId in appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId)
+            updateAppWidget(
+                context,
+                appWidgetManager,
+                appWidgetId
+            )
         }
     }
 
     companion object {
+        //TODO: Change pending intent
         private fun constructPendingIntent(context: Context): PendingIntent {
             return Intent(context, MainActivity::class.java)
                 .let { intent ->
@@ -35,7 +42,13 @@ class QuoteWidget : AppWidgetProvider() {
                 context.packageName,
                 R.layout.quote_widget_layout
             ).apply {
-                setOnClickPendingIntent(R.id.refresh, constructPendingIntent(context))
+                setOnClickPendingIntent(
+                    R.id.refresh,
+                    constructPendingIntent(
+                        context
+                    )
+                )
+                //TODO: set random quote from user database
                 setTextViewText(R.id.quote, "test overriden")
             }
             appWidgetManager.updateAppWidget(appWidgetId, views)
