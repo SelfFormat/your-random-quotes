@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
+import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.main_fragment.*
 
 
@@ -25,9 +25,9 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        logInSignUpButton.setOnClickListener {
-            view?.findNavController()?.navigate(R.id.action_mainFragment_to_loginFragment)
-        }
+        logInSignUpButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_mainFragment_to_loginFragment, null)
+        )
     }
 
 }
