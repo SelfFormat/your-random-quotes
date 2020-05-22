@@ -8,6 +8,16 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.selfformat.yourrandomquote.MainFragment"
-        android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
+        android:label="Home"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@android:anim/fade_in" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.selfformat.yourrandomquote.LoginFragment"
+        android:label="Log in / Sign up"
+        tools:layout="@layout/login_fragment" />
 </navigation>

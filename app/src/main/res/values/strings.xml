@@ -2,4 +2,5 @@
     <string name="app_name">Your Random Quote</string>
     <string name="refresh">Refresh</string>
     <string name="quote_placeholder">Random quote here</string>
+    <string name="log_in_sign_up">Log in / Sign up</string>
 </resources>
