@@ -22,8 +22,11 @@ class MainActivity : AppCompatActivity() {
     }
 
 /*  TODO MVP LIST:
-    [ ] Make navigation graph (login -> quote lists -> Adding quotes)
-    [ ] Add ability to login with firebase (google/email auth)
+    [x] Make base navigation graph
+    [x] Add ability to login with firebase (email auth)
+    [ ] Extract dependency versions
+    [ ] Migrate gradle from groovy to kotlin
+    [ ] Add ability to login with firebase (google account auth)
     [ ] Fetch user data from firebase
     [ ] Populate recyclerview with quotes
     [ ] Display random quote in widget
