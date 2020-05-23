@@ -14,6 +14,7 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -22,6 +23,10 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
