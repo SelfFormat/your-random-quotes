@@ -14,6 +14,7 @@ import androidx.navigation.Navigation
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.selfformat.yourrandomquote.domain.Quote
 import com.selfformat.yourrandomquote.domain.User
 import kotlinx.android.synthetic.main.main_fragment.*
 
@@ -77,11 +78,23 @@ class MainFragment : Fragment() {
         //TODO: add check if already exist?
         val user = FirebaseAuth.getInstance().currentUser
         user?.uid?.let {
-            val databaseUser = User(uid = it, email = user.email, name = user.displayName)
+            val databaseUser = User(
+                uid = it,
+                email = user.email,
+                name = user.displayName,
+                quotes = listOf(Quote.sampleQuote)
+            )
+
+            //TODO:
+            //[ ]How to assign proper id's
+            //[ ]How to add quote if not exist
+            //[ ]Adding rules to database to allow only user to write/read only own data
+
+
             viewModel.addUserToDatabase(databaseUser);
+            viewModel.getUsersRandomQuote(user.uid)
         }
     }
-
 
     private fun showPersonalizedWelcomeMessage(message: String): String {
         return String.format(

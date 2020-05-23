@@ -1,9 +1,9 @@
 package com.selfformat.yourrandomquote
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.selfformat.yourrandomquote.domain.User
 
 class LoginViewModel : ViewModel() {
@@ -30,4 +30,19 @@ class LoginViewModel : ViewModel() {
         database.child("users").child(user.uid).setValue(user)
     }
 
+    fun getUsersRandomQuote(uid: String) {
+        val quoteReference: DatabaseReference =
+            FirebaseDatabase.getInstance().reference.child("users").child(uid).child("quotes")
+
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val quote = dataSnapshot.value
+                //TODO: update UI with data
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        quoteReference.addValueEventListener(postListener)
+    }
 }
