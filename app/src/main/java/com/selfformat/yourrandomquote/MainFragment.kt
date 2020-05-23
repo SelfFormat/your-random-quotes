@@ -14,6 +14,7 @@ import androidx.navigation.Navigation
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.selfformat.yourrandomquote.domain.User
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
@@ -40,7 +41,10 @@ class MainFragment : Fragment() {
         if (requestCode == SIGN_IN_RESULT_CODE) {
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK) {
-                Log.i(TAG, "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!")
+                Log.i(
+                    TAG,
+                    "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!"
+                )
             } else {
                 Log.i(TAG, "Sign in unsuccessful ${response?.error?.errorCode}")
             }
@@ -52,7 +56,7 @@ class MainFragment : Fragment() {
             when (authenticationState) {
                 LoginViewModel.AuthenticationState.AUTHENTICATED -> {
                     welcome.text = showPersonalizedWelcomeMessage(getString(R.string.welcome))
-
+                    saveUser()
                     logInSignUpButton.text = getString(R.string.sign_out)
                     logInSignUpButton.setOnClickListener {
                         AuthUI.getInstance().signOut(requireContext())
@@ -67,6 +71,15 @@ class MainFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun saveUser() {
+        //TODO: add check if already exist?
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.uid?.let {
+            val databaseUser = User(uid = it, email = user.email, name = user.displayName)
+            viewModel.addUserToDatabase(databaseUser);
+        }
     }
 
 

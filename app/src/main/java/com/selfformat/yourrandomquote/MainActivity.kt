@@ -1,7 +1,7 @@
 package com.selfformat.yourrandomquote
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
     [x] Add ability to login with firebase (email auth)
     [x] Extract dependency versions
     [x] Migrate gradle from groovy to kotlin
-    [ ] Add ability to login with firebase (google account auth)
-    [ ] Fetch user data from firebase
+    [x] Add ability to login with firebase (google account auth)
+    [x] Add user to firebase realtime database
     [ ] Populate recyclerview with quotes
     [ ] Display random quote in widget
     [ ] Add refresh option in widget
@@ -39,6 +39,5 @@ class MainActivity : AppCompatActivity() {
     [ ] removing quotes
     [ ] searching
 */
-
 
 }
