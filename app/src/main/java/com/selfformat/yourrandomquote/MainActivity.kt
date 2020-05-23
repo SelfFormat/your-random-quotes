@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity() {
 /*  TODO MVP LIST:
     [x] Make base navigation graph
     [x] Add ability to login with firebase (email auth)
-    [ ] Extract dependency versions
-    [ ] Migrate gradle from groovy to kotlin
+    [x] Extract dependency versions
+    [x] Migrate gradle from groovy to kotlin
     [ ] Add ability to login with firebase (google account auth)
     [ ] Fetch user data from firebase
     [ ] Populate recyclerview with quotes
