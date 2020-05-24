@@ -16,4 +16,10 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
 
+    <style name="ThemeTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">?attr/colorPrimary</item>
+        <item name="android:textColorHint">?attr/colorPrimary</item>
+        <item name="boxStrokeWidth">1dp</item>
+    </style>
+
 </resources>
