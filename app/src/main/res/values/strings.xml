@@ -7,4 +7,5 @@
     <string name="welcome_message_authed">Hi %1$s! %2$s.</string>
     <string name="please_log_in">Please log in</string>
     <string name="welcome">Welcome!</string>
+    <string name="add_quote">Add quote</string>
 </resources>

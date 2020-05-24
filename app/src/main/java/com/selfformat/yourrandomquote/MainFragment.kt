@@ -35,6 +35,7 @@ class MainFragment : Fragment() {
         logInSignUpButton.setOnClickListener {
             launchSignInFlow()
         }
+        fab.setOnClickListener(navigateToAddQuoteFragment())
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -126,8 +127,6 @@ class MainFragment : Fragment() {
         const val SIGN_IN_RESULT_CODE = 1001
     }
 
-    fun navigateToLoginFragment() {
-        Navigation.createNavigateOnClickListener(R.id.action_mainFragment_to_loginFragment, null)
-    }
+    private fun navigateToAddQuoteFragment() = Navigation.createNavigateOnClickListener(R.id.action_mainFragment_to_addQuoteFragment, null)
 
 }

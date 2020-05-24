@@ -11,13 +11,12 @@
         android:label="Home"
         tools:layout="@layout/main_fragment" >
         <action
-            android:id="@+id/action_mainFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@android:anim/fade_in" />
+            android:id="@+id/action_mainFragment_to_addQuoteFragment"
+            app:destination="@id/addQuoteFragment" />
     </fragment>
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.selfformat.yourrandomquote.LoginFragment"
-        android:label="Log in / Sign up"
-        tools:layout="@layout/login_fragment" />
+        android:id="@+id/addQuoteFragment"
+        android:name="com.selfformat.yourrandomquote.AddQuoteFragment"
+        android:label="Add Quote"
+        tools:layout="@layout/add_quote_fragment" />
 </navigation>

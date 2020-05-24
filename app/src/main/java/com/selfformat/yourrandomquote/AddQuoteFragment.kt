@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 
-class LoginFragment : Fragment() {
+class AddQuoteFragment : Fragment() {
 
     private val viewModel: LoginViewModel by viewModels()
 
@@ -15,7 +15,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.login_fragment, container, false)
+        return inflater.inflate(R.layout.add_quote_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
