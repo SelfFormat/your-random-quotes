@@ -1,10 +1,10 @@
 package com.selfformat.yourrandomquote
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import com.google.firebase.database.*
-import com.selfformat.yourrandomquote.domain.User
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class LoginViewModel : ViewModel() {
 
@@ -12,22 +12,23 @@ class LoginViewModel : ViewModel() {
 
     companion object {
         const val TAG = "LoginViewModel"
-    }
-
-    enum class AuthenticationState {
-        AUTHENTICATED, UNAUTHENTICATED
+        var uid: String? = null
     }
 
     val authenticationState = FirebaseUserLiveData().map { user ->
         if (user != null) {
-            AuthenticationState.AUTHENTICATED
+            updateOrCreateUser(user)
+            uid = user.uid
+            AUTHENTICATED(user.uid)
         } else {
-            AuthenticationState.UNAUTHENTICATED
+            uid = null
+            UNAUTHENTICATED
         }
     }
 
-    fun addUserToDatabase(user: User) {
-        database.child("users").child(user.uid).setValue(user)
+    private fun updateOrCreateUser(user: FirebaseUser) {
+        database.child("users").child(user.uid).child("name").setValue(user.displayName)
+        database.child("users").child(user.uid).child("email").setValue(user.email)
     }
 
     fun getUsersRandomQuote(uid: String) {
@@ -46,3 +47,7 @@ class LoginViewModel : ViewModel() {
         quoteReference.addValueEventListener(postListener)
     }
 }
+
+sealed class AuthenticationState
+data class AUTHENTICATED(val uid: String) : AuthenticationState()
+object UNAUTHENTICATED : AuthenticationState()

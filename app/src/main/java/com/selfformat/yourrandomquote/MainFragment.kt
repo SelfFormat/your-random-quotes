@@ -56,9 +56,8 @@ class MainFragment : Fragment() {
     private fun observeAuthenticationState() {
         viewModel.authenticationState.observe(viewLifecycleOwner, Observer { authenticationState ->
             when (authenticationState) {
-                LoginViewModel.AuthenticationState.AUTHENTICATED -> {
+                is AUTHENTICATED -> {
                     welcome.text = showPersonalizedWelcomeMessage(getString(R.string.welcome))
-                    saveUser()
                     logInSignUpButton.text = getString(R.string.sign_out)
                     logInSignUpButton.setOnClickListener {
                         AuthUI.getInstance().signOut(requireContext())
@@ -73,28 +72,6 @@ class MainFragment : Fragment() {
                 }
             }
         })
-    }
-
-    private fun saveUser() {
-        //TODO: add check if already exist?
-        val user = FirebaseAuth.getInstance().currentUser
-        user?.uid?.let {
-            val databaseUser = User(
-                uid = it,
-                email = user.email,
-                name = user.displayName,
-                quotes = listOf(Quote.sampleQuote)
-            )
-
-            //TODO:
-            //[ ]How to assign proper id's
-            //[ ]How to add quote if not exist
-            //[ ]Adding rules to database to allow only user to write/read only own data
-
-
-            viewModel.addUserToDatabase(databaseUser);
-            viewModel.getUsersRandomQuote(user.uid)
-        }
     }
 
     private fun showPersonalizedWelcomeMessage(message: String): String {
