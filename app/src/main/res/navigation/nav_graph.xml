@@ -10,9 +10,13 @@
         android:name="com.selfformat.yourrandomquote.MainFragment"
         android:label="Home"
         tools:layout="@layout/main_fragment" >
+
         <action
             android:id="@+id/action_mainFragment_to_addQuoteFragment"
-            app:destination="@id/addQuoteFragment" />
+            app:destination="@id/addQuoteFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
+
     </fragment>
     <fragment
         android:id="@+id/addQuoteFragment"

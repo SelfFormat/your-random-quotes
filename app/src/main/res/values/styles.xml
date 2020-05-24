@@ -13,11 +13,15 @@
         <item name="android:colorBackground">@color/background</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:textColor">@android:color/white</item>
+
     </style>
 
     <style name="ThemeTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">?attr/colorPrimary</item>
         <item name="android:textColorHint">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textColorPrimary">?attr/colorPrimaryVariant</item>
         <item name="boxStrokeWidth">1dp</item>
     </style>
 

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.selfformat.yourrandomquote.domain.Quote
 import kotlinx.android.synthetic.main.add_quote_fragment.*
 
@@ -24,19 +25,25 @@ class AddQuoteFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         addQuoteButton.setOnClickListener {
             if (validationSucceeded()) {
-                prepareQuoteFromInput()
                 LoginViewModel.uid?.let {
                     quoteViewModel.addQuote(it, prepareQuoteFromInput())
                 }
+                findNavController().navigateUp()
             }
         }
     }
 
     private fun prepareQuoteFromInput() : Quote {
-        return Quote.sampleQuote.copy(quote = "overriden successfuly") //TODO: Change from sample to real quote from edittext fields
+        return Quote.sampleQuote.copy(quote = quoteTextField.editText?.text.toString(), author = authorFirstNameTextField.editText?.text.toString()) //TODO: Change from sample to real quote from edittext fields
     }
 
     private fun validationSucceeded(): Boolean {
+        if (quoteTextField.editText?.text.isNullOrBlank() || authorFirstNameTextField.editText?.text.isNullOrBlank()) {
+            quoteTextField.error = "You need to fill every field"
+            authorFirstNameTextField.error = "You need to fill every field"
+            return false
+        }
+
         return true
     }
 
