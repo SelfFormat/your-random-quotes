@@ -12,11 +12,13 @@
 
 [x] Add user to firebase realtime database
 
-[ ] Add button for adding quotes to main fragment
+[x] Add button for adding quotes to main fragment
 
-[ ] Remove login fragment as AuthUI is sufficient
+[x] Remove login fragment as AuthUI is sufficient
 
-[ ] Add fragment for adding quotes to user's database
+[x] Add fragment for adding quotes to user's database
+
+[ ] Retrieve input from edit text fields
 
 [ ] Restrict adding quotes only for logged in user
 
@@ -35,7 +37,9 @@
 [ ] Polish recyclerview UI
 
 ## TODO ADDONS:
-[ ] add theme and polish AuthUI look
+[x] add theme
+
+[ ] polish AuthUI look
 
 [ ] removing quotes
 
