@@ -8,11 +8,12 @@ android {
     compileSdkVersion(29)
     defaultConfig {
         applicationId = "com.selfformat.yourrandomquote"
-        minSdkVersion(17)
+        minSdkVersion(21)
         targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -36,6 +37,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:$app_compat_version")
     implementation("androidx.core:core-ktx:$ktx_version")
     implementation("androidx.constraintlayout:constraintlayout:$constraint_layout_version")
+    implementation("com.google.android.material:material:$material_version")
     implementation("androidx.legacy:legacy-support-v4:$androidx_legacy_version")
     implementation("androidx.lifecycle:lifecycle-extensions:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
