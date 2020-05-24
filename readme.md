@@ -39,6 +39,8 @@
 ## TODO ADDONS:
 [x] add theme
 
+[ ]Adding rules to database to allow only user to write/read only own data
+
 [ ] polish AuthUI look
 
 [ ] removing quotes
