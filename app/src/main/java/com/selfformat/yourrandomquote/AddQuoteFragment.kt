@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.selfformat.yourrandomquote.domain.Quote
+import com.selfformat.yourrandomquote.domain.DatabaseQuote
 import kotlinx.android.synthetic.main.add_quote_fragment.*
 
 class AddQuoteFragment : Fragment() {
@@ -33,8 +33,8 @@ class AddQuoteFragment : Fragment() {
         }
     }
 
-    private fun prepareQuoteFromInput(): Quote {
-        return Quote.sampleQuote.copy(
+    private fun prepareQuoteFromInput(): DatabaseQuote {
+        return DatabaseQuote(
             quote = quoteTextField.editText?.text.toString(),
             author = authorFirstNameTextField.editText?.text.toString()
         )

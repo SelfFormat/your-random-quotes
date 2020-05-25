@@ -3,15 +3,14 @@ package com.selfformat.yourrandomquote
 import androidx.lifecycle.ViewModel
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.selfformat.yourrandomquote.domain.Quote
-import kotlin.random.Random
+import com.selfformat.yourrandomquote.domain.DatabaseQuote
 
 class AddQuoteViewModel : ViewModel() {
 
     private var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
-    fun addQuote(uid: String, quote: Quote) {
-        database.child("users").child(uid).child("quotes").push().setValue(quote)
+    fun addQuote(uid: String, databaseQuote: DatabaseQuote) {
+        database.child("users").child(uid).child("quotes").push().setValue(databaseQuote)
     }
 
     companion object {

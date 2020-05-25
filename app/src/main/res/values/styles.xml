@@ -13,7 +13,7 @@
         <item name="android:colorBackground">@color/background</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
 
     </style>
 

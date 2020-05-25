@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -14,8 +15,6 @@ import androidx.navigation.Navigation
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
-import com.selfformat.yourrandomquote.domain.Quote
-import com.selfformat.yourrandomquote.domain.User
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
@@ -36,6 +35,16 @@ class MainFragment : Fragment() {
             launchSignInFlow()
         }
         fab.setOnClickListener(navigateToAddQuoteFragment())
+
+        viewModel.quotes.observe(viewLifecycleOwner, Observer { quotes ->
+            val quoteList = quotes.flatMap { arrayListOf(it.quote) }
+            val adapter = ArrayAdapter<String>(
+                requireContext(),
+                android.R.layout.simple_list_item_1,
+                quoteList
+            )
+            listView.adapter = adapter
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -43,10 +52,7 @@ class MainFragment : Fragment() {
         if (requestCode == SIGN_IN_RESULT_CODE) {
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK) {
-                Log.i(
-                    TAG,
-                    "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!"
-                )
+                Log.i(TAG, "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!")
             } else {
                 Log.i(TAG, "Sign in unsuccessful ${response?.error?.errorCode}")
             }
@@ -104,6 +110,7 @@ class MainFragment : Fragment() {
         const val SIGN_IN_RESULT_CODE = 1001
     }
 
-    private fun navigateToAddQuoteFragment() = Navigation.createNavigateOnClickListener(R.id.action_mainFragment_to_addQuoteFragment, null)
+    private fun navigateToAddQuoteFragment() =
+        Navigation.createNavigateOnClickListener(R.id.action_mainFragment_to_addQuoteFragment, null)
 
 }
