@@ -33,8 +33,11 @@ class AddQuoteFragment : Fragment() {
         }
     }
 
-    private fun prepareQuoteFromInput() : Quote {
-        return Quote.sampleQuote.copy(quote = quoteTextField.editText?.text.toString(), author = authorFirstNameTextField.editText?.text.toString()) //TODO: Change from sample to real quote from edittext fields
+    private fun prepareQuoteFromInput(): Quote {
+        return Quote.sampleQuote.copy(
+            quote = quoteTextField.editText?.text.toString(),
+            author = authorFirstNameTextField.editText?.text.toString()
+        )
     }
 
     private fun validationSucceeded(): Boolean {
