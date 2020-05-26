@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.selfformat.yourrandomquote">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="com.selfformat.yourrandomquote.MyApplication"
         android:allowBackup="true"
@@ -28,6 +30,9 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/quote_widget_provider" />
         </receiver>
+
+        <service android:name=".widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>
