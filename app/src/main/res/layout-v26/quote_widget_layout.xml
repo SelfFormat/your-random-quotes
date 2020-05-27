@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/widget_layout_background">
+    android:background="@drawable/widget_layout_background"
+    android:orientation="vertical">
 
     <!-- TODO: Add class to change look randomly with fonts and colours -->
     <TextView
         android:id="@+id/quote"
-        android:layout_margin="4dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/quote_placeholder"
-        android:textColor="@android:color/white"
-        android:gravity="center"
+        android:layout_above="@id/author"
+        android:layout_margin="4dp"
         android:autoSizeTextType="uniform"
-        android:layout_above="@id/author"/>
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        tools:text="@string/quote_placeholder" />
 
     <TextView
         android:id="@+id/author"
-        android:layout_marginEnd="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="~Author"
-        android:textSize="18sp"
-        android:gravity="right"
+        android:layout_height="36dp"
+        android:layout_toEndOf="@id/refresh"
+        android:layout_margin="8dp"
+        android:gravity="end|center_vertical"
+        android:textAllCaps="true"
         android:textColor="@android:color/white"
-        android:layout_above="@id/refresh"/>
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:layout_alignParentBottom="true"
+        tools:text="~Author" />
 
     <ImageButton
         android:id="@+id/refresh"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/ic_refresh_black_24dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#44FFFFFF"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/ic_refresh_black_24dp"
+        android:backgroundTint="#44FFFFFF"
         android:contentDescription="@string/refresh" />
 
 </RelativeLayout>

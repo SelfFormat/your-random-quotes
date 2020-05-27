@@ -24,7 +24,7 @@ private const val notWorking = "notWorking"
 
 class QuoteWidget : AppWidgetProvider() {
 
-    var quoteList: MutableList<String> = mutableListOf()
+    var quoteList: MutableList<Quote> = mutableListOf()
 
 
     override fun onReceive(context: Context?, intent: Intent) {
@@ -58,21 +58,27 @@ class QuoteWidget : AppWidgetProvider() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     for (snapshot in dataSnapshot.children) {
                         val post = snapshot.getValue(Quote::class.java)
-                        quoteList.add(post!!.quote!!)
+                        quoteList.add(post!!)
                     }
                     val random = Random.nextInt(from = 0, until = quoteList.size)
-                    updateAppWidget(context, appWidgetManager, appWidgetId, quoteList[random])
+                    val randomQuote = quoteList[random]
+                    updateAppWidget(
+                        context = context,
+                        appWidgetManager = appWidgetManager,
+                        appWidgetId = appWidgetId,
+                        author = randomQuote.author!!,
+                        quote = randomQuote.quote!!)
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
-            updateAppWidget(context, appWidgetManager, appWidgetId, notWorking)
+            updateAppWidget(context, appWidgetManager, appWidgetId, notWorking, notWorking)
         }
     }
 
     private fun updateAppWidget(
         context: Context, appWidgetManager: AppWidgetManager,
-        appWidgetId: Int, text: String
+        appWidgetId: Int, author: String, quote: String
     ) {
         initializeData()
         val views: RemoteViews = RemoteViews(
@@ -84,8 +90,11 @@ class QuoteWidget : AppWidgetProvider() {
                 getPendingSelfIntent(context, ACTION_UPDATE_CLICK_NEXT)
             )
             //TODO: change to different check to not set unneeded value
-            if (text != notWorking) {
-                setTextViewText(R.id.quote, text)
+            if (quote != notWorking) {
+                setTextViewText(R.id.quote, quote)
+            }
+            if (author != notWorking) {
+                setTextViewText(R.id.author, context.getString(R.string.author_in_widget, author))
             }
         }
         appWidgetManager.updateAppWidget(appWidgetId, views)
@@ -109,7 +118,7 @@ class QuoteWidget : AppWidgetProvider() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     for (snapshot in dataSnapshot.children) {
                         val post = snapshot.getValue(Quote::class.java)
-                        quoteList.add(post!!.quote!!)
+                        quoteList.add(post!!)
                     }
                 }
 
