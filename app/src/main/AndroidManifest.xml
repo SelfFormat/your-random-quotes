@@ -31,8 +31,8 @@
                 android:resource="@xml/quote_widget_provider" />
         </receiver>
 
-        <service android:name=".widget.WidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+<!--        <service android:name=".widget.WidgetService"-->
+<!--            android:permission="android.permission.BIND_REMOTEVIEWS"/>-->
     </application>
 
 </manifest>
