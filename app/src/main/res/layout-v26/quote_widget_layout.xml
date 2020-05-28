@@ -6,39 +6,72 @@
     android:background="@drawable/widget_layout_background"
     android:orientation="vertical">
 
-    <!-- TODO: Add class to change look randomly with fonts and colours -->
     <TextView
-        android:id="@+id/quote"
+        android:id="@+id/quoteAmaticFont"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/author"
-        android:layout_margin="4dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="4dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/amatic_sc"
+        android:gravity="center"
+        android:justificationMode="inter_word"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        tools:text="@string/quote_placeholder"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/quoteDefaultFont"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/author"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="4dp"
         android:autoSizeTextType="uniform"
         android:gravity="center"
+        android:justificationMode="inter_word"
         android:textColor="@android:color/white"
+        android:visibility="gone"
         tools:text="@string/quote_placeholder" />
+
 
     <TextView
         android:id="@+id/author"
         android:layout_width="match_parent"
         android:layout_height="36dp"
-        android:layout_toEndOf="@id/refresh"
+        android:layout_alignParentBottom="true"
         android:layout_margin="8dp"
+        android:layout_toEndOf="@id/refresh"
         android:gravity="end|center_vertical"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="italic"
-        android:layout_alignParentBottom="true"
         tools:text="~Author" />
+
+    <ProgressBar
+        android:id="@+id/progressRefresh"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:indeterminateDrawable="@drawable/rotation"
+        android:visibility="gone" />
 
     <ImageButton
         android:id="@+id/refresh"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/ic_refresh_black_24dp"
         android:backgroundTint="#44FFFFFF"
         android:contentDescription="@string/refresh" />

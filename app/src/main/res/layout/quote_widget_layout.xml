@@ -9,14 +9,35 @@
 
     <!-- TODO: Add class to change look randomly with fonts and colours -->
     <TextView
-        android:id="@+id/quote"
+        android:id="@+id/quoteAmaticFont"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/author"
-        android:layout_margin="4dp"
-        app:autoSizeTextType="uniform"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/amatic_sc"
         android:gravity="center"
         android:textColor="@android:color/white"
+        app:autoSizeTextType="uniform"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="@string/quote_placeholder" />
+
+    <TextView
+        android:id="@+id/quoteDefaultFont"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/author"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@android:color/white"
+        app:autoSizeTextType="uniform"
         tools:text="@string/quote_placeholder" />
 
     <TextView
@@ -32,6 +53,17 @@
         android:textStyle="italic"
         android:layout_alignParentBottom="true"
         tools:text="~Author" />
+
+
+    <ProgressBar
+        android:id="@+id/progressRefresh"
+        android:visibility="gone"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:indeterminateDrawable="@drawable/rotation" />
 
     <ImageButton
         android:id="@+id/refresh"

@@ -7,6 +7,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.view.View
 import android.widget.RemoteViews
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -21,11 +22,12 @@ import kotlin.random.Random
 private const val ACTION_UPDATE_CLICK_NEXT = "action.UPDATE_CLICK_NEXT"
 private const val TAG = "QuoteWidget"
 private const val notWorking = "notWorking"
+private val textViewsWithDifferentFonts = listOf(R.id.quoteAmaticFont, R.id.quoteDefaultFont)             //As remote view doesn't have setTextAppearance method, we will use set of pre-styled textViews and pick one random
 
 class QuoteWidget : AppWidgetProvider() {
 
+    var lastGeneratedQuote: Int = 0
     var quoteList: MutableList<Quote> = mutableListOf()
-
 
     override fun onReceive(context: Context?, intent: Intent) {
         super.onReceive(context, intent)
@@ -49,6 +51,7 @@ class QuoteWidget : AppWidgetProvider() {
     ) {
         // There may be multiple widgets active, so update all of them
         for (appWidgetId in appWidgetIds) {
+            updateLoading(context, appWidgetManager, appWidgetId)
             quoteList.clear()
             val auth = FirebaseAuth.getInstance()
             val userId = auth.currentUser!!.uid //TODO: remove !! as it may be null
@@ -60,20 +63,43 @@ class QuoteWidget : AppWidgetProvider() {
                         val post = snapshot.getValue(Quote::class.java)
                         quoteList.add(post!!)
                     }
-                    val random = Random.nextInt(from = 0, until = quoteList.size)
+                    var random = Random.nextInt(
+                        from = 0,
+                        until = quoteList.size
+                    )
+                    while (random == lastGeneratedQuote) {
+                        random = Random.nextInt(from = 0, until = quoteList.size)
+                    }
                     val randomQuote = quoteList[random]
+
                     updateAppWidget(
                         context = context,
                         appWidgetManager = appWidgetManager,
                         appWidgetId = appWidgetId,
                         author = randomQuote.author!!,
-                        quote = randomQuote.quote!!)
+                        quote = randomQuote.quote!!
+                    )
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
             updateAppWidget(context, appWidgetManager, appWidgetId, notWorking, notWorking)
         }
+    }
+
+    private fun updateLoading(
+        context: Context, appWidgetManager: AppWidgetManager,
+        appWidgetId: Int
+    ) {
+        initializeData()
+        val views: RemoteViews = RemoteViews(
+            context.packageName,
+            R.layout.quote_widget_layout
+        ).apply {
+            setViewVisibility(R.id.refresh, View.GONE)
+            setViewVisibility(R.id.progressRefresh, View.VISIBLE)
+        }
+        appWidgetManager.updateAppWidget(appWidgetId, views)
     }
 
     private fun updateAppWidget(
@@ -89,13 +115,22 @@ class QuoteWidget : AppWidgetProvider() {
                 R.id.refresh,
                 getPendingSelfIntent(context, ACTION_UPDATE_CLICK_NEXT)
             )
-            //TODO: change to different check to not set unneeded value
+
+            for (text in textViewsWithDifferentFonts) {
+                setViewVisibility(text, View.GONE)
+                //TODO: instead of going through all of id's remember last rendered id  and set it to gone
+            }
+
+            val random = Random.nextInt(from = 0, until = textViewsWithDifferentFonts.size)
             if (quote != notWorking) {
-                setTextViewText(R.id.quote, quote)
+                setViewVisibility(textViewsWithDifferentFonts[random], View.VISIBLE)
+                setTextViewText(textViewsWithDifferentFonts[random], quote)
             }
             if (author != notWorking) {
                 setTextViewText(R.id.author, context.getString(R.string.author_in_widget, author))
             }
+            setViewVisibility(R.id.refresh, View.VISIBLE)
+            setViewVisibility(R.id.progressRefresh, View.GONE)
         }
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
