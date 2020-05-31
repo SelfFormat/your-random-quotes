@@ -14,8 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity
-            android:name="com.selfformat.yourrandomquote.MainActivity">
+        <activity android:name="com.selfformat.yourrandomquote.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,9 +29,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/quote_widget_provider" />
         </receiver>
-
-<!--        <service android:name=".widget.WidgetService"-->
-<!--            android:permission="android.permission.BIND_REMOTEVIEWS"/>-->
     </application>
 
 </manifest>
