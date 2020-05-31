@@ -22,7 +22,7 @@ import kotlin.random.Random
 private const val ACTION_UPDATE_CLICK_NEXT = "action.UPDATE_CLICK_NEXT"
 private const val TAG = "QuoteWidget"
 private const val notWorking = "notWorking"
-private val textViewsWithDifferentFonts = listOf(R.id.quoteAmaticFont, R.id.quoteDefaultFont)             //As remote view doesn't have setTextAppearance method, we will use set of pre-styled textViews and pick one random
+private val textViewsWithDifferentFonts = listOf(R.id.quoteAmaticFont, R.id.quoteCormorantFont)             //As remote view doesn't have setTextAppearance method, we will use set of pre-styled textViews and pick one random
 
 class QuoteWidget : AppWidgetProvider() {
 

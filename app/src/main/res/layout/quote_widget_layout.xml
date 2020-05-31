@@ -22,15 +22,15 @@
         android:scrollbars="vertical"
         android:textColor="@android:color/white"
         android:visibility="gone"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="18sp"
         app:autoSizeMaxTextSize="60sp"
+        app:autoSizeMinTextSize="18sp"
         app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"
         tools:text="@string/quote_placeholder"
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/quoteDefaultFont"
+        android:id="@+id/quoteCormorantFont"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/author"
@@ -38,14 +38,15 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="4dp"
+        android:fontFamily="@font/cormorant_garamond_semibold_italic"
         android:gravity="center_vertical"
         android:scrollbars="vertical"
         android:textColor="@android:color/white"
         android:visibility="gone"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="18sp"
         app:autoSizeMaxTextSize="60sp"
+        app:autoSizeMinTextSize="18sp"
         app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"
         tools:text="@string/quote_placeholder" />
 
     <TextView
