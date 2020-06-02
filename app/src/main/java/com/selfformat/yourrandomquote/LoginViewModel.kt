@@ -30,6 +30,7 @@ class LoginViewModel : ViewModel() {
             AUTHENTICATED(user.uid)
         } else {
             uid = null
+            _quotes.value = emptyList()
             UNAUTHENTICATED
         }
     }

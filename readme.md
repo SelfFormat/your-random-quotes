@@ -2,8 +2,6 @@
 
 [ ] Change listview to recycler view with all user's quotes
 
-[ ] Populate recyclerview with quotes once user is logged in
-
 [ ] Refresh widget on every screen unlock (if possible or something with similar refresh rate)
 
 [ ] Add more fonts to widget
@@ -23,6 +21,8 @@
 [ ] display random quote (but not the previous one)
 
 ## DONE:
+
+[x] Populate recyclerview with quotes once user is logged in
 
 [x] Restrict adding quotes screen only for logged in user
 
