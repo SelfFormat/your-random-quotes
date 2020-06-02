@@ -54,35 +54,39 @@ class QuoteWidget : AppWidgetProvider() {
             updateLoading(context, appWidgetManager, appWidgetId)
             quoteList.clear()
             val auth = FirebaseAuth.getInstance()
-            val userId = auth.currentUser!!.uid //TODO: remove !! as it may be null
-            val database = FirebaseDatabase.getInstance().reference.child("users").child(userId)
-                .child("quotes")
-            database.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    for (snapshot in dataSnapshot.children) {
-                        val post = snapshot.getValue(Quote::class.java)
-                        quoteList.add(post!!)
-                    }
-                    var random = Random.nextInt(
-                        from = 0,
-                        until = quoteList.size
-                    )
-                    while (random == lastGeneratedQuote) {
-                        random = Random.nextInt(from = 0, until = quoteList.size)
-                    }
-                    val randomQuote = quoteList[random]
+            val user = auth.currentUser
+            if (user != null) {
+                val userId = user.uid
+                //TODO: remove !! as it may be null
+                val database = FirebaseDatabase.getInstance().reference.child("users").child(userId)
+                    .child("quotes")
+                database.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        for (snapshot in dataSnapshot.children) {
+                            val post = snapshot.getValue(Quote::class.java)
+                            quoteList.add(post!!)
+                        }
+                        var random = Random.nextInt(
+                            from = 0,
+                            until = quoteList.size
+                        )
+                        while (random == lastGeneratedQuote) {
+                            random = Random.nextInt(from = 0, until = quoteList.size)
+                        }
+                        val randomQuote = quoteList[random]
 
-                    updateAppWidget(
-                        context = context,
-                        appWidgetManager = appWidgetManager,
-                        appWidgetId = appWidgetId,
-                        author = randomQuote.author!!,
-                        quote = randomQuote.quote!!
-                    )
-                }
+                        updateAppWidget(
+                            context = context,
+                            appWidgetManager = appWidgetManager,
+                            appWidgetId = appWidgetId,
+                            author = randomQuote.author!!,
+                            quote = randomQuote.quote!!
+                        )
+                    }
 
-                override fun onCancelled(databaseError: DatabaseError) {}
-            })
+                    override fun onCancelled(databaseError: DatabaseError) {}
+                })
+            }
             updateAppWidget(context, appWidgetManager, appWidgetId, notWorking, notWorking)
         }
     }
