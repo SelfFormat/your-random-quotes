@@ -12,25 +12,21 @@
 
 [ ] Polish recyclerview UI
 
-## TODO ADDONS:
-
 [ ] Adding rules to database to allow only user to write/read only own data
 
-[ ] polish AuthUI look
+[ ] align AuthUI theme with app theme
 
 [ ] removing quotes
 
 [ ] searching
 
-## FIXME
-
 [ ] refreshing icon is not responding on every load
-
-[ ] theming with material themes (differences between emulator and real device)
 
 [ ] display random quote (but not the previous one)
 
 ## DONE:
+
+[x] theming with material themes (differences between emulator and real device)
 
 [x] Make base navigation graph
 
