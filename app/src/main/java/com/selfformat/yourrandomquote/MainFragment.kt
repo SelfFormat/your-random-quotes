@@ -34,7 +34,6 @@ class MainFragment : Fragment() {
         logInSignUpButton.setOnClickListener {
             launchSignInFlow()
         }
-        fab.setOnClickListener(navigateToAddQuoteFragment())
 
         viewModel.quotes.observe(viewLifecycleOwner, Observer { quotes ->
             val quoteList = quotes.flatMap { arrayListOf(it.quote) }
@@ -44,6 +43,7 @@ class MainFragment : Fragment() {
                 quoteList
             )
             listView.adapter = adapter
+            adapter.notifyDataSetChanged() //TODO: How to notify after logout to display empty list?
         })
     }
 
@@ -68,6 +68,8 @@ class MainFragment : Fragment() {
                     logInSignUpButton.setOnClickListener {
                         AuthUI.getInstance().signOut(requireContext())
                     }
+                    fab.visibility = View.VISIBLE
+                    fab.setOnClickListener(navigateToAddQuoteFragment())
                 }
                 else -> {
                     welcome.text = getString(R.string.please_log_in)
@@ -75,6 +77,7 @@ class MainFragment : Fragment() {
                     logInSignUpButton.setOnClickListener {
                         launchSignInFlow()
                     }
+                    fab.visibility = View.GONE
                 }
             }
         })

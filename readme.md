@@ -1,7 +1,5 @@
 ## TODO MVP LIST:
 
-[ ] Restrict adding quotes screen only for logged in user
-
 [ ] Change listview to recycler view with all user's quotes
 
 [ ] Populate recyclerview with quotes once user is logged in
@@ -25,6 +23,8 @@
 [ ] display random quote (but not the previous one)
 
 ## DONE:
+
+[x] Restrict adding quotes screen only for logged in user
 
 [x] theming with material themes (differences between emulator and real device)
 
