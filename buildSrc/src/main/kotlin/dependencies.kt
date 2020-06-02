@@ -1,7 +1,7 @@
 const val app_compat_version = "1.1.0"
 const val kotlin_version = "1.3.72"
 const val koin_version = "2.1.5"
-const val gradle_version = "3.6.3"
+const val gradle_version = "4.0.0"
 const val google_services_version = "4.3.3"
 const val nav_version = "2.2.2"
 const val lifecycle_version = "2.2.0"
