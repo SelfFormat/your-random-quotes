@@ -2,15 +2,9 @@
 
 [ ] Change listview to recycler view with all user's quotes
 
-[ ] Refresh widget on every screen unlock (if possible or something with similar refresh rate)
-
 [ ] Add more fonts to widget
 
 [ ] Polish recyclerview UI
-
-[ ] Adding rules to database to allow only user to write/read only own data
-
-[ ] align AuthUI theme with app theme
 
 [ ] removing quotes
 
@@ -20,7 +14,13 @@
 
 [ ] display random quote (but not the previous one)
 
+[ ] widget is not scrolling textview
+
+[ ] Adding rules to database to allow only user to write/read only own data
+
 ## DONE:
+
+[x] align AuthUI theme with app theme
 
 [x] Populate recyclerview with quotes once user is logged in
 
