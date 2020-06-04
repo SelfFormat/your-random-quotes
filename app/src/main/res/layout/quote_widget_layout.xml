@@ -56,13 +56,14 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="8dp"
         android:layout_toEndOf="@id/refresh"
+        android:ellipsize="end"
         android:gravity="end|center_vertical"
+        android:maxLines="1"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="italic"
         tools:text="~Author" />
-
 
     <ProgressBar
         android:id="@+id/progressRefresh"
