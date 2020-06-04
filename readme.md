@@ -1,24 +1,22 @@
-## TODO MVP LIST:
+## TODO LIST:
 
 [ ] Change listview to recycler view with all user's quotes
 
-[ ] Add more fonts to widget
-
 [ ] Polish recyclerview UI
 
-[ ] removing quotes
-
-[ ] searching
+[ ] removing and editing quotes
 
 [ ] refreshing icon is not responding on every load
 
-[ ] display random quote (but not the previous one)
-
 [ ] widget is not scrolling textview
+
+[ ] Add more fonts to widget
 
 [ ] Adding rules to database to allow only user to write/read only own data
 
 ## DONE:
+
+[x] display random quote except the previous one
 
 [x] align AuthUI theme with app theme
 

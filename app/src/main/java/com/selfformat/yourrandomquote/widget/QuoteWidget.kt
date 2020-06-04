@@ -26,7 +26,10 @@ private val textViewsWithDifferentFonts = listOf(R.id.quoteAmaticFont, R.id.quot
 
 class QuoteWidget : AppWidgetProvider() {
 
-    var lastGeneratedQuote: Int = 0
+    companion object {
+        var lastGeneratedQuote: Int = 0
+    }
+
     var quoteList: MutableList<Quote> = mutableListOf()
 
     override fun onReceive(context: Context?, intent: Intent) {
@@ -49,7 +52,6 @@ class QuoteWidget : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
-        // There may be multiple widgets active, so update all of them
         for (appWidgetId in appWidgetIds) {
             updateLoading(context, appWidgetManager, appWidgetId)
             quoteList.clear()
@@ -57,24 +59,16 @@ class QuoteWidget : AppWidgetProvider() {
             val user = auth.currentUser
             if (user != null) {
                 val userId = user.uid
-                //TODO: remove !! as it may be null
                 val database = FirebaseDatabase.getInstance().reference.child("users").child(userId)
                     .child("quotes")
                 database.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        quoteList.clear()
                         for (snapshot in dataSnapshot.children) {
                             val post = snapshot.getValue(Quote::class.java)
                             quoteList.add(post!!)
                         }
-                        var random = Random.nextInt(
-                            from = 0,
-                            until = quoteList.size
-                        )
-                        while (random == lastGeneratedQuote) {
-                            random = Random.nextInt(from = 0, until = quoteList.size)
-                        }
-                        val randomQuote = quoteList[random]
-
+                        val randomQuote = quoteList[getRandomQuoteIndex(quoteList.size)]
                         updateAppWidget(
                             context = context,
                             appWidgetManager = appWidgetManager,
@@ -91,11 +85,22 @@ class QuoteWidget : AppWidgetProvider() {
         }
     }
 
+    private fun getRandomQuoteIndex(size: Int): Int {
+        var random = Random.nextInt(
+            from = 0,
+            until = size
+        )
+        while (random == lastGeneratedQuote) {
+            random = Random.nextInt(from = 0, until = size)
+        }
+        lastGeneratedQuote = random
+        return lastGeneratedQuote
+    }
+
     private fun updateLoading(
         context: Context, appWidgetManager: AppWidgetManager,
         appWidgetId: Int
     ) {
-        initializeData()
         val views: RemoteViews = RemoteViews(
             context.packageName,
             R.layout.quote_widget_layout
@@ -110,7 +115,6 @@ class QuoteWidget : AppWidgetProvider() {
         context: Context, appWidgetManager: AppWidgetManager,
         appWidgetId: Int, author: String, quote: String
     ) {
-        initializeData()
         val views: RemoteViews = RemoteViews(
             context.packageName,
             R.layout.quote_widget_layout
@@ -143,28 +147,5 @@ class QuoteWidget : AppWidgetProvider() {
         val intent = Intent(context, javaClass)
         intent.action = action
         return PendingIntent.getBroadcast(context, 0, intent, 0)
-    }
-
-    @Throws(NullPointerException::class)
-    private fun initializeData() {
-        try {
-            quoteList.clear()
-            val auth = FirebaseAuth.getInstance()
-            val userId = auth.currentUser!!.uid
-            val database = FirebaseDatabase.getInstance().reference.child("users").child(userId)
-                .child("quotes")
-            database.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    for (snapshot in dataSnapshot.children) {
-                        val post = snapshot.getValue(Quote::class.java)
-                        quoteList.add(post!!)
-                    }
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {}
-            })
-        } catch (e: NullPointerException) {
-            e.printStackTrace()
-        }
     }
 }
