@@ -1,18 +1,22 @@
 ## TODO LIST:
 
+[ ] Reformat code to leverage Koin
+
+[ ] Adding rules to database to allow only user to write/read only own data
+
+[ ] widget is not scrolling textview
+
+[ ] refreshing icon is not responding on every load
+
+[ ] Add better logging system to trace log only on debug builds
+
 [ ] Change listview to recycler view with all user's quotes
 
 [ ] Polish recyclerview UI
 
 [ ] removing and editing quotes
 
-[ ] refreshing icon is not responding on every load
-
-[ ] widget is not scrolling textview
-
 [ ] Add more fonts to widget
-
-[ ] Adding rules to database to allow only user to write/read only own data
 
 ## DONE:
 
