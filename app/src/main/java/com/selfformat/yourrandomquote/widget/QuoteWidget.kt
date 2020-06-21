@@ -18,9 +18,7 @@ import com.selfformat.yourrandomquote.R
 import com.selfformat.yourrandomquote.domain.Quote
 import kotlin.random.Random
 
-
 private const val ACTION_UPDATE_CLICK_NEXT = "action.UPDATE_CLICK_NEXT"
-private const val TAG = "QuoteWidget"
 private const val notWorking = "notWorking"
 private val textViewsWithDifferentFonts = listOf(R.id.quoteAmaticFont, R.id.quoteCormorantFont)             //As remote view doesn't have setTextAppearance method, we will use set of pre-styled textViews and pick one random
 
@@ -28,6 +26,9 @@ class QuoteWidget : AppWidgetProvider() {
 
     companion object {
         var lastGeneratedQuote: Int = 0
+        private const val TAG = "QuoteWidget"
+        private const val PATH_USERS = "users"
+        private const val PATH_QUOTES = "quotes"
     }
 
     var quoteList: MutableList<Quote> = mutableListOf()
@@ -59,8 +60,9 @@ class QuoteWidget : AppWidgetProvider() {
             val user = auth.currentUser
             if (user != null) {
                 val userId = user.uid
-                val database = FirebaseDatabase.getInstance().reference.child("users").child(userId)
-                    .child("quotes")
+
+                val database = FirebaseDatabase.getInstance().reference.child(PATH_USERS).child(userId)
+                    .child(PATH_QUOTES)
                 database.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         quoteList.clear()

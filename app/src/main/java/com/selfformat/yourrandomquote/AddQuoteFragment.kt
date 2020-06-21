@@ -42,8 +42,8 @@ class AddQuoteFragment : Fragment() {
 
     private fun validationSucceeded(): Boolean {
         if (quoteTextField.editText?.text.isNullOrBlank() || authorFirstNameTextField.editText?.text.isNullOrBlank()) {
-            quoteTextField.error = "You need to fill every field"
-            authorFirstNameTextField.error = "You need to fill every field"
+            quoteTextField.error = getString(R.string.edittext_error_message)
+            authorFirstNameTextField.error = getString(R.string.edittext_error_message)
             return false
         }
 

@@ -52,7 +52,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
     <Button
         android:id="@+id/addQuoteButton"
         android:layout_width="0dp"

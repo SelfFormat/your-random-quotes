@@ -14,6 +14,10 @@ class LoginViewModel : ViewModel() {
     private var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     companion object {
+        private const val PATH_USERS = "users" //TODO: refactor to use DatabaseReferenceExt
+        private const val PATH_QUOTES = "quotes"
+        private const val PATH_NAME = "name"
+        private const val PATH_EMAIL = "email"
         const val TAG = "LoginViewModel"
         var uid: String? = null
     }
@@ -36,14 +40,14 @@ class LoginViewModel : ViewModel() {
     }
 
     private fun updateOrCreateUser(user: FirebaseUser) {
-        database.child("users").child(user.uid).child("name").setValue(user.displayName)
-        database.child("users").child(user.uid).child("email").setValue(user.email)
+        database.users().child(user.uid).child(PATH_NAME).setValue(user.displayName)
+        database.users().child(user.uid).child(PATH_EMAIL).setValue(user.email)
     }
 
     private fun getUsersRandomQuote(uid: String) {
         val quoteReference: DatabaseReference =
-            FirebaseDatabase.getInstance().reference.child("users").child(uid)
-                .child("quotes")
+            FirebaseDatabase.getInstance().reference.child(PATH_USERS).child(uid)
+                .child(PATH_QUOTES)
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -56,7 +60,7 @@ class LoginViewModel : ViewModel() {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+                Log.w(TAG, "loadPost: onCancelled: ", databaseError.toException())
             }
         }
         quoteReference.addValueEventListener(postListener)
