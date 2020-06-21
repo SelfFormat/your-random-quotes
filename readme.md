@@ -6,6 +6,12 @@
 
 [ ] widget is not scrolling textview
 
+[ ] add UAT flavour for building app on CI
+
+[ ] setup CI (github action)
+
+[ ] add detekt
+
 [ ] refreshing icon is not responding on every load
 
 [ ] Add better logging system to trace log only on debug builds
@@ -17,6 +23,8 @@
 [ ] removing and editing quotes
 
 [ ] Add more fonts to widget
+
+[ ] add unit tests (widget not respodning with only 1 quote)
 
 ## DONE:
 
