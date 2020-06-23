@@ -8,7 +8,7 @@ object QuoteListState {
     private var lastGeneratedQuote: Int = 0
 
     val textViewsWithDifferentFonts = listOf(
-        R.id.quoteAmaticFont,
+        R.id.listView,
         R.id.quoteCormorantFont
     ) //As remote view doesn't have setTextAppearance method, we will use set of pre-styled textViews and pick one random
 

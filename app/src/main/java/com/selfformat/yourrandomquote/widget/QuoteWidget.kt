@@ -10,6 +10,8 @@ import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
+import android.widget.RemoteViewsService
+import android.widget.RemoteViewsService.RemoteViewsFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.selfformat.yourrandomquote.R
@@ -48,9 +50,88 @@ class QuoteWidget : AppWidgetProvider() {
 
     private fun new(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         for (appWidgetId in appWidgetIds) {
-            val intent = Intent(context, QuoteWidget::class.java)
+            val intent = Intent(context, QuoteService::class.java)
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
+
+            val widget = RemoteViews(context.packageName, R.layout.quote_widget_layout)
+            widget.setRemoteAdapter(R.id.listView, intent)
+            appWidgetManager.updateAppWidget(appWidgetId, widget)
+        }
+    }
+
+    class QuoteService : RemoteViewsService() {
+        override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
+            return QuoteRemoteViewsFactory(applicationContext.packageName)
+        }
+    }
+
+    class QuoteRemoteViewsFactory(private val packageName: String) : RemoteViewsFactory {
+        override fun onCreate() {
+        }
+
+        override fun getLoadingView(): RemoteViews? {
+            return null
+        }
+
+        override fun getItemId(position: Int): Long {
+            return 0L
+        }
+
+        override fun onDataSetChanged() {
+        }
+
+        override fun hasStableIds(): Boolean {
+            return true
+        }
+
+        override fun getViewAt(position: Int): RemoteViews {
+            val remoteView = RemoteViews(
+                packageName,
+                android.R.layout.simple_list_item_1
+            )
+            remoteView.setTextViewText(android.R.id.text1, """
+                Contrary to popular belief, Lorem Ipsum is
+                not simply random text.
+                It has roots in a piece of classical Latin 
+                literature from 45 BC, making it over 2000 years old.
+                Richard McClintock, a Latin professor at Hampden-Sydney 
+                College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+                Contrary to popular belief, Lorem Ipsum is
+                not simply random text.
+                It has roots in a piece of classical Latin 
+                literature from 45 BC, making it over 2000 years old.
+                Richard McClintock, a Latin professor at Hampden-Sydney 
+                College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+                Contrary to popular belief, Lorem Ipsum is
+                not simply random text.
+                It has roots in a piece of classical Latin 
+                literature from 45 BC, making it over 2000 years old.
+                Richard McClintock, a Latin professor at Hampden-Sydney 
+                College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+                Contrary to popular belief, Lorem Ipsum is
+                not simply random text.
+                It has roots in a piece of classical Latin 
+                literature from 45 BC, making it over 2000 years old.
+                Richard McClintock, a Latin professor at Hampden-Sydney 
+                College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+            """.trimIndent())
+            return remoteView
+        }
+
+        override fun getCount(): Int {
+            return 1
+        }
+
+        override fun getViewTypeCount(): Int {
+            return 1
+        }
+
+        override fun onDestroy() {
         }
     }
 
