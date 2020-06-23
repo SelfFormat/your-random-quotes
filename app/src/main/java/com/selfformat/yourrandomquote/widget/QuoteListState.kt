@@ -1,16 +1,10 @@
 package com.selfformat.yourrandomquote.widget
 
-import com.selfformat.yourrandomquote.R
 import com.selfformat.yourrandomquote.domain.Quote
 import kotlin.random.Random
 
-object QuoteListState {
+class QuoteListState {
     private var lastGeneratedQuote: Int = 0
-
-    val textViewsWithDifferentFonts = listOf(
-        R.id.listView,
-        R.id.quoteCormorantFont
-    ) //As remote view doesn't have setTextAppearance method, we will use set of pre-styled textViews and pick one random
 
     fun randomize(quotes: List<Quote>): Quote {
         return quotes[getRandomQuoteIndex(quotes.size)]

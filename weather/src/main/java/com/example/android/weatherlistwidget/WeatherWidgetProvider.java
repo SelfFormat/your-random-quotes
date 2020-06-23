@@ -53,9 +53,9 @@ public class WeatherWidgetProvider extends AppWidgetProvider {
 
     private boolean mIsLargeLayout = true;
     private int mHeaderWeatherState = 0;
-    
+
     RemoteViews rv;
-    
+
 
     public WeatherWidgetProvider() {
         // Start the worker thread
@@ -95,7 +95,7 @@ public class WeatherWidgetProvider extends AppWidgetProvider {
                 @Override
                 public void run() {
                     final ContentResolver r = context.getContentResolver();
-                    final Cursor c = r.query(WeatherDataProvider.CONTENT_URI, null, null, null, 
+                    final Cursor c = r.query(WeatherDataProvider.CONTENT_URI, null, null, null,
                             null);
                     final int count = c.getCount();
 
@@ -114,7 +114,7 @@ public class WeatherWidgetProvider extends AppWidgetProvider {
                     final AppWidgetManager mgr = AppWidgetManager.getInstance(context);
                     final ComponentName cn = new ComponentName(context, WeatherWidgetProvider.class);
                     mgr.notifyAppWidgetViewDataChanged(mgr.getAppWidgetIds(cn), R.id.weather_list);
-                    
+
                 }
             });
 
@@ -145,16 +145,16 @@ public class WeatherWidgetProvider extends AppWidgetProvider {
             int id = appWidgetId;
             sWorkerQueue.postDelayed(new Runnable() {
 
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					rv1.setScrollPosition(R.id.weather_list, 5);
-					final AppWidgetManager mgr = AppWidgetManager.getInstance(context);
-		            mgr.partiallyUpdateAppWidget(appWidgetId, rv);
-				}
-            	
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    rv1.setScrollPosition(R.id.weather_list, 5);
+                    final AppWidgetManager mgr = AppWidgetManager.getInstance(context);
+                    mgr.partiallyUpdateAppWidget(appWidgetId, rv);
+                }
+
             }, 1000);
-            
+
             // Set the empty view to be displayed if the collection is empty.  It must be a sibling
             // view of the collection view.
             rv.setEmptyView(R.id.weather_list, R.id.empty_view);
@@ -210,7 +210,7 @@ public class WeatherWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager,
-            int appWidgetId, Bundle newOptions) {
+                                          int appWidgetId, Bundle newOptions) {
 
         int minWidth = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
         int maxWidth = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);

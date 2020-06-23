@@ -31,7 +31,7 @@
         </receiver>
 
         <!-- The service serving the RemoteViews to the collection widget -->
-        <service android:name=".widget.QuoteWidget$QuoteService"
+        <service android:name=".widget.QuoteService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="false" />
     </application>
