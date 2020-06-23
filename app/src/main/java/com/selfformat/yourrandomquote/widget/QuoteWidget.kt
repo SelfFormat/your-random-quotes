@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
@@ -21,7 +22,7 @@ private const val TAG = "QuoteWidget"
 
 class QuoteWidget : AppWidgetProvider() {
 
-        override fun onReceive(context: Context?, intent: Intent) {
+    override fun onReceive(context: Context?, intent: Intent) {
         super.onReceive(context, intent)
         if (ACTION_UPDATE_CLICK_NEXT == intent.action) {
             Log.d(TAG, "onReceive: ")
@@ -42,6 +43,18 @@ class QuoteWidget : AppWidgetProvider() {
         appWidgetIds: IntArray
     ) {
         Log.i(TAG, "onUpdate: appWidgetIds=${appWidgetIds.size}")
+        new(context, appWidgetManager, appWidgetIds)
+    }
+
+    private fun new(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+        for (appWidgetId in appWidgetIds) {
+            val intent = Intent(context, QuoteWidget::class.java)
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+            intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
+        }
+    }
+
+    private fun old(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         for (appWidgetId in appWidgetIds) {
             val widget = quoteWidget(context).loadingQuoteWidget()
             appWidgetManager.updateAppWidget(appWidgetId, widget)
