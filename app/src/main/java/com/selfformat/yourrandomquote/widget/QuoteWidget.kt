@@ -6,22 +6,17 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
-import android.view.View
 import android.widget.RemoteViews
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
 import com.selfformat.yourrandomquote.R
-import com.selfformat.yourrandomquote.domain.Quote
-import com.selfformat.yourrandomquote.widget.QuoteListState.textViewsWithDifferentFonts
-import kotlin.random.Random
 
 private const val ACTION_UPDATE_CLICK_NEXT = "action.UPDATE_CLICK_NEXT"
 private const val TAG = "QuoteWidget"
 
 class QuoteWidget : AppWidgetProvider() {
 
-        override fun onReceive(context: Context?, intent: Intent) {
+    override fun onReceive(context: Context?, intent: Intent) {
         super.onReceive(context, intent)
         if (ACTION_UPDATE_CLICK_NEXT == intent.action) {
             Log.d(TAG, "onReceive: ")
@@ -42,73 +37,28 @@ class QuoteWidget : AppWidgetProvider() {
         appWidgetIds: IntArray
     ) {
         Log.i(TAG, "onUpdate: appWidgetIds=${appWidgetIds.size}")
-        for (appWidgetId in appWidgetIds) {
-            val widget = quoteWidget(context).loadingQuoteWidget()
+        createRemoteViews(context, appWidgetIds).forEach { (appWidgetId, widget) ->
             appWidgetManager.updateAppWidget(appWidgetId, widget)
         }
-
-        val auth = FirebaseAuth.getInstance()
-        val user = auth.currentUser
-        if (user != null) {
-            val userId = user.uid
-            val database = FirebaseDatabase.getInstance()
-                .reference
-                .users()
-                .withID(userId)
-                .quotes()
-            database.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val quotes = dataSnapshot.children.mapNotNull { snapshot ->
-                        snapshot.getValue(Quote::class.java)
-                    }
-                    Log.i(TAG, "onUpdate: quotes=${quotes}")
-
-                    for (appWidgetId in appWidgetIds) {
-                        val randomQuote = QuoteListState.randomize(quotes)
-                        val widget = quoteWidget(context).loadedQuoteWidget(context, randomQuote)
-                        appWidgetManager.updateAppWidget(appWidgetId, widget)
-                    }
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {}
-            })
-        }
     }
 
-    private fun RemoteViews.loadingQuoteWidget(): RemoteViews {
-        setViewVisibility(R.id.refresh, View.GONE)
-        setViewVisibility(R.id.progressRefresh, View.VISIBLE)
-        return this
-    }
+    private fun createRemoteViews(
+        context: Context,
+        appWidgetIds: IntArray
+    ): Map<Int, RemoteViews> {
+        return appWidgetIds.map { appWidgetId ->
+            val intent = Intent(context, QuoteService::class.java)
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+            intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
 
-    private fun RemoteViews.loadedQuoteWidget(context: Context, quote: Quote): RemoteViews {
-        setOnClickPendingIntent(
-            R.id.refresh,
-            getPendingSelfIntent(context)
-        )
-
-        for (text in textViewsWithDifferentFonts) {
-            setViewVisibility(text, View.GONE)
-            //TODO: instead of going through all of id's remember last rendered id  and set it to gone
-        }
-
-        val random = Random.nextInt(from = 0, until = textViewsWithDifferentFonts.size)
-        setViewVisibility(textViewsWithDifferentFonts[random], View.VISIBLE)
-        setTextViewText(textViewsWithDifferentFonts[random], quote.quote)
-
-        setTextViewText(R.id.author, context.getString(R.string.author_in_widget, quote.author))
-
-        setViewVisibility(R.id.refresh, View.VISIBLE)
-        setViewVisibility(R.id.progressRefresh, View.GONE)
-
-        return this
-    }
-
-    private fun quoteWidget(context: Context): RemoteViews {
-        return RemoteViews(
-            context.packageName,
-            R.layout.quote_widget_layout
-        )
+            val widget = RemoteViews(context.packageName, R.layout.quote_widget_layout)
+            widget.setRemoteAdapter(R.id.listView, intent)
+            widget.setOnClickPendingIntent(
+                R.id.refresh,
+                getPendingSelfIntent(context)
+            )
+            appWidgetId to widget
+        }.toMap()
     }
 
     private fun getPendingSelfIntent(context: Context): PendingIntent? {
