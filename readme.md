@@ -1,67 +1,15 @@
-## TODO LIST:
+## Your random quote
 
-[ ] Reformat code to leverage Koin
+### About this app:
+This app let you see your random quote / thought in good looking widget.
+With this app obsessive checking your phone or boring swiping could bring some benefits throuhg learning and memorizing meaningful quotes (if you'll add them of course).
 
-[ ] Adding rules to database to allow only user to write/read only own data
+Widget let you only to refresh quote.
+Login/sign up with google/email (can be extended to another providers as it's using FirebaseUI auth.
 
-[ ] widget is not scrolling textview
+Adding quotes (as an MVP, but soon will let you edit and delete quotes)
 
-[ ] add UAT flavour for building app on CI
-
-[ ] setup CI (github action)
-
-[ ] add detekt
-
-[ ] refreshing icon is not responding on every load
-
-[ ] Add better logging system to trace log only on debug builds
-
-[ ] Change listview to recycler view with all user's quotes
-
-[ ] Polish recyclerview UI
-
-[ ] removing and editing quotes
-
-[ ] Add more fonts to widget
-
-[ ] add unit tests (widget not respodning with only 1 quote)
-
-## DONE:
-
-[x] display random quote except the previous one
-
-[x] align AuthUI theme with app theme
-
-[x] Populate recyclerview with quotes once user is logged in
-
-[x] Restrict adding quotes screen only for logged in user
-
-[x] theming with material themes (differences between emulator and real device)
-
-[x] Make base navigation graph
-
-[x] Add ability to login with firebase (email auth)
-
-[x] Extract dependency versions
-
-[x] Migrate gradle from groovy to kotlin
-
-[x] Add ability to login with firebase (google account auth)
-
-[x] Add user to firebase realtime database
-
-[x] Add button for adding quotes to main fragment
-
-[x] Remove login fragment as AuthUI is sufficient
-
-[x] Add fragment for adding quotes to user's database
-
-[x] Retrieve input from edit text fields
-
-[x] Display random quote in widget
-
-[x] Add refresh option in widget
-
-[x] Polish widget UI
-
-[x] add theme
+Unfortunately due to android system restriction I wasn't able to add features:
+- refresh quote widget on every phone unlock
+- scrolling of text view with quote (only list view allows for it, but this means no autosizing)
+(but at least I've tried and learned it's not possible to do or not possible to do it quickly)
