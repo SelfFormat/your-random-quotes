@@ -34,7 +34,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Build with Gradle
-        run: ./gradlew test --stacktrace
+        run: ./gradlew testDebugUnitTest --stacktrace
 
   apk:
     name: Generate APK
