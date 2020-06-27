@@ -22,7 +22,8 @@ class MainFragment : Fragment() {
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.main_fragment, container, false)
@@ -43,7 +44,7 @@ class MainFragment : Fragment() {
                 quoteList
             )
             listView.adapter = adapter
-            adapter.notifyDataSetChanged() //TODO: How to notify after logout to display empty list?
+            adapter.notifyDataSetChanged() // TODO: How to notify after logout to display empty list?
         })
     }
 
@@ -116,5 +117,4 @@ class MainFragment : Fragment() {
 
     private fun navigateToAddQuoteFragment() =
         Navigation.createNavigateOnClickListener(R.id.action_mainFragment_to_addQuoteFragment, null)
-
 }

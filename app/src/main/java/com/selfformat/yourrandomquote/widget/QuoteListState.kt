@@ -10,7 +10,7 @@ object QuoteListState {
     val textViewsWithDifferentFonts = listOf(
         R.id.quoteAmaticFont,
         R.id.quoteCormorantFont
-    ) //As remote view doesn't have setTextAppearance method, we will use set of pre-styled textViews and pick one random
+    ) // As remote view doesn't have setTextAppearance method, we will use set of pre-styled textViews and pick one random
 
     fun randomize(quotes: List<Quote>): Quote {
         return quotes[getRandomQuoteIndex(quotes.size)]

@@ -43,7 +43,7 @@ class QuoteWidget : AppWidgetProvider() {
     ) {
         Log.i(TAG, "onUpdate: appWidgetIds=${appWidgetIds.size}")
         for (appWidgetId in appWidgetIds) {
-            val widget = quoteWidget(context).loadingQuoteWidget()
+            val widget = mainWidget(context).loadingQuoteWidget()
             appWidgetManager.updateAppWidget(appWidgetId, widget)
         }
 
@@ -61,11 +61,11 @@ class QuoteWidget : AppWidgetProvider() {
                     val quotes = dataSnapshot.children.mapNotNull { snapshot ->
                         snapshot.getValue(Quote::class.java)
                     }
-                    Log.i(TAG, "onUpdate: quotes=${quotes}")
+                    Log.i(TAG, "onUpdate: quotes=$quotes")
 
                     for (appWidgetId in appWidgetIds) {
                         val randomQuote = QuoteListState.randomize(quotes)
-                        val widget = quoteWidget(context).loadedQuoteWidget(context, randomQuote)
+                        val widget = mainWidget(context).loadedQuoteWidget(context, randomQuote)
                         appWidgetManager.updateAppWidget(appWidgetId, widget)
                     }
                 }
@@ -89,7 +89,6 @@ class QuoteWidget : AppWidgetProvider() {
 
         for (text in textViewsWithDifferentFonts) {
             setViewVisibility(text, View.GONE)
-            //TODO: instead of going through all of id's remember last rendered id  and set it to gone
         }
 
         val random = Random.nextInt(from = 0, until = textViewsWithDifferentFonts.size)
@@ -104,7 +103,7 @@ class QuoteWidget : AppWidgetProvider() {
         return this
     }
 
-    private fun quoteWidget(context: Context): RemoteViews {
+    private fun mainWidget(context: Context): RemoteViews {
         return RemoteViews(
             context.packageName,
             R.layout.quote_widget_layout

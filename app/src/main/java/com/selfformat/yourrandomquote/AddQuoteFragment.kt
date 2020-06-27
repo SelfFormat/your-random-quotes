@@ -15,7 +15,8 @@ class AddQuoteFragment : Fragment() {
     private val quoteViewModel: AddQuoteViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.add_quote_fragment, container, false)
@@ -49,5 +50,4 @@ class AddQuoteFragment : Fragment() {
 
         return true
     }
-
 }
