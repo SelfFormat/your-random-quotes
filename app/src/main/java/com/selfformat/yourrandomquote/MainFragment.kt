@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
                 quoteList
             )
             listView.adapter = adapter
-            adapter.notifyDataSetChanged() // TODO: How to notify after logout to display empty list?
+            adapter.notifyDataSetChanged()
         })
     }
 
