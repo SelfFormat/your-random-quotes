@@ -35,8 +35,6 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Detekt all
         uses: natiginfo/action-detekt-all@1.10.0-RC1
-        with:
-          args: --config detekt.yml
       - name: Build with Gradle
         run: ./gradlew testDebugUnitTest --stacktrace
 

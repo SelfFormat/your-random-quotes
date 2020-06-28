@@ -75,7 +75,7 @@ class QuoteWidget : AppWidgetProvider() {
                         appWidgetManager.updateAppWidget(appWidgetId, widget)
                     }
                 }
-
+                @Suppress("EmptyFunctionBlock")
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
         }
