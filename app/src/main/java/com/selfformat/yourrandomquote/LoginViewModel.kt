@@ -6,7 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.email
+import com.google.firebase.database.name
+import com.google.firebase.database.quotes
+import com.google.firebase.database.users
+import com.google.firebase.database.withID
 import com.selfformat.yourrandomquote.domain.Quote
 
 class LoginViewModel : ViewModel() {

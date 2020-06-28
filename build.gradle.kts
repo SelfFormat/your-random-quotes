@@ -6,10 +6,10 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:$gradle_version")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
-        classpath("com.google.gms:google-services:$google_services_version")
-        classpath("org.koin:koin-gradle-plugin:$koin_version")
+        classpath("com.android.tools.build:gradle:$GRADLE_VERSION")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION")
+        classpath("com.google.gms:google-services:$GOOGLE_SERVICES_VERSION")
+        classpath("org.koin:koin-gradle-plugin:$KOIN_VERSION")
     }
 }
 
@@ -20,6 +20,6 @@ allprojects {
     }
 }
 
-tasks.register("clean",Delete::class){
+tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }

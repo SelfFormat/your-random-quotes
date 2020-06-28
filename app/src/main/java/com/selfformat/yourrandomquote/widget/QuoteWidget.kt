@@ -10,7 +10,13 @@ import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.quotes
+import com.google.firebase.database.users
+import com.google.firebase.database.withID
 import com.selfformat.yourrandomquote.R
 import com.selfformat.yourrandomquote.domain.Quote
 import com.selfformat.yourrandomquote.widget.QuoteListState.textViewsWithDifferentFonts
