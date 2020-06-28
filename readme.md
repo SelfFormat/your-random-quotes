@@ -1,10 +1,10 @@
-## Your random quote
+# Your random quote
 
 ### About this app:
 This app let you see your random quote / thought in good looking widget.
 With this app obsessive checking your phone or boring swiping could bring some benefits throuhg learning and memorizing meaningful quotes (if you'll add them of course).
 
-Widget let you only to refresh quote.
+Widget let you randomize quote on refresh.
 Login/sign up with google/email (can be extended to another providers as it's using FirebaseUI auth.
 
 Adding quotes (as an MVP, but soon will let you edit and delete quotes)
