@@ -5,9 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -16,6 +18,7 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.main_fragment.*
+
 
 class MainFragment : Fragment() {
 
@@ -29,21 +32,19 @@ class MainFragment : Fragment() {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         observeAuthenticationState()
-        logInSignUpButton.setOnClickListener {
-            launchSignInFlow()
-        }
 
         viewModel.quotes.observe(viewLifecycleOwner, Observer { quotes ->
-            val quoteList = quotes.flatMap { arrayListOf(it.quote) }
-            val adapter = ArrayAdapter<String>(
-                requireContext(),
-                android.R.layout.simple_list_item_1,
-                quoteList
-            )
-            listView.adapter = adapter
+            val quoteList: List<String?> = quotes.flatMap { arrayListOf(it.quote) }
+            val adapter = QuotesListAdapter(quoteList)
+            quotesRecyclerView.adapter = adapter
             adapter.notifyDataSetChanged()
         })
     }
@@ -60,38 +61,50 @@ class MainFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.homepage_signup_menu, menu)
+        val signUp = menu.findItem(R.id.signUpMenuButton)
+        val signOut = menu.findItem(R.id.signOutMenuButton)
+
+        val list = listOf(1).sortedDescending()
+
+        if (viewModel.authenticationState.value is AUTHENTICATED) {
+            signOut.isVisible = true
+            signUp.isVisible = false
+        } else {
+            signOut.isVisible = false
+            signUp.isVisible = true
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        observeAuthenticationState()
+        return when (item.itemId) {
+            R.id.signUpMenuButton -> {
+                launchSignInFlow()
+                true
+            }
+            R.id.signOutMenuButton -> {
+                AuthUI.getInstance().signOut(requireContext())
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun observeAuthenticationState() {
         viewModel.authenticationState.observe(viewLifecycleOwner, Observer { authenticationState ->
             when (authenticationState) {
                 is AUTHENTICATED -> {
-                    welcome.text = showPersonalizedWelcomeMessage(getString(R.string.welcome))
-                    logInSignUpButton.text = getString(R.string.sign_out)
-                    logInSignUpButton.setOnClickListener {
-                        AuthUI.getInstance().signOut(requireContext())
-                    }
                     fab.visibility = View.VISIBLE
                     fab.setOnClickListener(navigateToAddQuoteFragment())
                 }
                 else -> {
-                    welcome.text = getString(R.string.please_log_in)
-                    logInSignUpButton.text = getString(R.string.log_in_sign_up)
-                    logInSignUpButton.setOnClickListener {
-                        launchSignInFlow()
-                    }
                     fab.visibility = View.GONE
                 }
             }
         })
-    }
-
-    private fun showPersonalizedWelcomeMessage(message: String): String {
-        return String.format(
-            resources.getString(
-                R.string.welcome_message_authed,
-                FirebaseAuth.getInstance().currentUser?.displayName,
-                message
-            )
-        )
     }
 
     private fun launchSignInFlow() {
