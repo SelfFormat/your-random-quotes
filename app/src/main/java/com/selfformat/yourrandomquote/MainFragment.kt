@@ -19,7 +19,6 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.main_fragment.*
 
-
 class MainFragment : Fragment() {
 
     private val viewModel: LoginViewModel by viewModels()
@@ -67,8 +66,6 @@ class MainFragment : Fragment() {
         val signUp = menu.findItem(R.id.signUpMenuButton)
         val signOut = menu.findItem(R.id.signOutMenuButton)
 
-        val list = listOf(1).sortedDescending()
-
         if (viewModel.authenticationState.value is AUTHENTICATED) {
             signOut.isVisible = true
             signUp.isVisible = false
@@ -99,9 +96,11 @@ class MainFragment : Fragment() {
                 is AUTHENTICATED -> {
                     fab.visibility = View.VISIBLE
                     fab.setOnClickListener(navigateToAddQuoteFragment())
+                    activity?.invalidateOptionsMenu()
                 }
                 else -> {
                     fab.visibility = View.GONE
+                    activity?.invalidateOptionsMenu()
                 }
             }
         })
