@@ -1,7 +1,7 @@
 const val APP_COMPAT_VERSION = "1.1.0"
 const val KOTLIN_VERSION = "1.3.72"
 const val KOIN_VERSION = "2.1.5"
-const val GRADLE_VERSION = "4.0.0"
+const val GRADLE_VERSION = "4.0.1"
 const val GOOGLE_SERVICES_VERSION = "4.3.3"
 const val NAV_VERSION = "2.2.2"
 const val LIFECYCLE_VERSION = "2.2.0"
