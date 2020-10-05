@@ -4,16 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.selfformat.yourrandomquote.domain.Quote
 import kotlinx.android.synthetic.main.quote_list_item.view.*
 
-class QuotesListAdapter(private val quote: List<String?>) :
+class QuotesListAdapter(private val quote: List<Quote?>) :
     RecyclerView.Adapter<QuotesListAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val view = itemView.findViewById<View>(R.id.quoteItemLayout)
 
-        fun bind(string: String?) {
-            view.quoteTextView.text = string
+        fun bind(quote: Quote?) {
+            view.quoteTextView.text = quote?.quote
+            view.authorTextView.text = quote?.author
         }
     }
 

@@ -41,8 +41,7 @@ class MainFragment : Fragment() {
         observeAuthenticationState()
 
         viewModel.quotes.observe(viewLifecycleOwner, Observer { quotes ->
-            val quoteList: List<String?> = quotes.flatMap { arrayListOf(it.quote) }
-            val adapter = QuotesListAdapter(quoteList)
+            val adapter = QuotesListAdapter(quotes)
             quotesRecyclerView.adapter = adapter
             adapter.notifyDataSetChanged()
         })
