@@ -46,6 +46,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$LIFECYCLE_VERSION")
+    implementation("com.jakewharton.timber:timber:$TIMBER_VERSION")
 
     // Tests
     testImplementation("junit:junit:$JUNIT_VERSION")

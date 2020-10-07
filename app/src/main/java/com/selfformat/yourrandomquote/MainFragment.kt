@@ -18,6 +18,7 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.main_fragment.*
+import timber.log.Timber
 
 class MainFragment : Fragment() {
 
@@ -52,9 +53,9 @@ class MainFragment : Fragment() {
         if (requestCode == SIGN_IN_RESULT_CODE) {
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK) {
-                Log.i(TAG, "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!")
+                Timber.i("Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!")
             } else {
-                Log.i(TAG, "Sign in unsuccessful ${response?.error?.errorCode}")
+                Timber.i("Sign in unsuccessful ${response?.error?.errorCode}")
             }
         }
     }

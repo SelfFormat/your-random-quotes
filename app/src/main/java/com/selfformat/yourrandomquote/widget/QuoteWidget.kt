@@ -20,17 +20,17 @@ import com.google.firebase.database.withID
 import com.selfformat.yourrandomquote.R
 import com.selfformat.yourrandomquote.domain.Quote
 import com.selfformat.yourrandomquote.widget.QuoteListState.textViewsWithDifferentFonts
+import timber.log.Timber
 import kotlin.random.Random
 
 private const val ACTION_UPDATE_CLICK_NEXT = "action.UPDATE_CLICK_NEXT"
-private const val TAG = "QuoteWidget"
 
 class QuoteWidget : AppWidgetProvider() {
 
         override fun onReceive(context: Context?, intent: Intent) {
         super.onReceive(context, intent)
         if (ACTION_UPDATE_CLICK_NEXT == intent.action) {
-            Log.d(TAG, "onReceive: ")
+            Timber.d("onReceive: $intent")
             onUpdate(context!!)
         }
     }
@@ -47,7 +47,7 @@ class QuoteWidget : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
-        Log.i(TAG, "onUpdate: appWidgetIds=${appWidgetIds.size}")
+        Timber.i("onUpdate: appWidgetIds=${appWidgetIds.size}")
         for (appWidgetId in appWidgetIds) {
             val widget = mainWidget(context).loadingQuoteWidget()
             appWidgetManager.updateAppWidget(appWidgetId, widget)
@@ -67,7 +67,7 @@ class QuoteWidget : AppWidgetProvider() {
                     val quotes = dataSnapshot.children.mapNotNull { snapshot ->
                         snapshot.getValue(Quote::class.java)
                     }
-                    Log.i(TAG, "onUpdate: quotes=$quotes")
+                    Timber.i("onUpdate: quotes=$quotes")
 
                     for (appWidgetId in appWidgetIds) {
                         val randomQuote = QuoteListState.randomize(quotes)

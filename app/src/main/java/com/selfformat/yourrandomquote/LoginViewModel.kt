@@ -17,6 +17,7 @@ import com.google.firebase.database.quotes
 import com.google.firebase.database.users
 import com.google.firebase.database.withID
 import com.selfformat.yourrandomquote.domain.Quote
+import timber.log.Timber
 
 class LoginViewModel : ViewModel() {
 
@@ -64,7 +65,7 @@ class LoginViewModel : ViewModel() {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.w(TAG, "loadPost: onCancelled: ", databaseError.toException())
+                Timber.w(databaseError.toException(), "loadPost: onCancelled ")
             }
         }
         quoteReference.addValueEventListener(postListener)
