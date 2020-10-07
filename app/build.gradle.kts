@@ -4,13 +4,22 @@ plugins {
     kotlin("android.extensions")
     id("com.google.gms.google-services")
 }
+// To build release build you need to use this command:
+// ./gradle :app:assembleRelease -PshouldEnableCrashlytics=true
+val shouldEnableCrashlytics: String? by project
+
+val enableCrashlytics = shouldEnableCrashlytics?.toBoolean() ?: false
+
+if (enableCrashlytics) {
+    apply(plugin = "com.google.firebase.crashlytics")
+}
 @Suppress("detekt:MagicNumber")
 android {
-    compileSdkVersion(apiLevel = 29)
+    compileSdkVersion(apiLevel = 30)
     defaultConfig {
         applicationId = "com.selfformat.yourrandomquote"
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -57,6 +66,11 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics:$FIREBASE_ANALYTICS_VERSION")
     implementation("com.google.firebase:firebase-auth:$FIREBASE_AUTH_VERSION")
     implementation("com.google.firebase:firebase-database:$FIREBASE_DATABASE_VERSION")
+    if (enableCrashlytics) {
+        releaseImplementation("com.google.firebase:firebase-crashlytics-ktx:$FIREBASE_CRASHLYTICS_VERSION")
+    } else {
+        releaseCompileOnly("com.google.firebase:firebase-crashlytics-ktx:$FIREBASE_CRASHLYTICS_VERSION")
+    }
     implementation("com.firebaseui:firebase-ui-auth:$FIREBASE_UI_VERSION")
 
     // Koin for Android
