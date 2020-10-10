@@ -5,7 +5,7 @@ plugins {
     id("com.google.gms.google-services")
 }
 // To build release build you need to use this command:
-// ./gradle :app:assembleRelease -PshouldEnableCrashlytics=true
+// ./gradlew :app:assembleRelease -PshouldEnableCrashlytics=true
 val shouldEnableCrashlytics: String? by project
 
 val enableCrashlytics = shouldEnableCrashlytics?.toBoolean() ?: false
@@ -26,6 +26,21 @@ android {
         multiDexEnabled = true
     }
 
+    signingConfigs {
+        getByName("debug") {
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+            storeFile = file("$rootDir/debug.keystore")
+            storePassword = "android"
+        }
+        create("release") {
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+            storeFile = file("$rootDir/debug.keystore")
+            storePassword = "android"
+        }
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -33,9 +48,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
         getByName("debug") {
             applicationIdSuffix = ".debug"
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
