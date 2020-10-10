@@ -1,9 +1,42 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
     id("com.google.gms.google-services")
 }
+
+data class ProjectSigningProperties(
+    val keyAlias: String,
+    val keyPassword: String,
+    val storeFilePath: String,
+    val storePassword: String
+)
+
+val defaultProjectSigningProperties =
+    ProjectSigningProperties(
+        keyAlias = "androiddebugkey",
+        keyPassword = "android",
+        storeFilePath = "$rootDir/debug.keystore",
+        storePassword = "android"
+    )
+
+val gradlePropertiesPath: String? by project
+val projectSigningProperties = if (gradlePropertiesPath == null) {
+    defaultProjectSigningProperties
+} else {
+    val keystoreProperties = Properties()
+    keystoreProperties.load(FileInputStream(gradlePropertiesPath!!))
+    ProjectSigningProperties(
+        keyAlias = keystoreProperties["keyAlias"] as String,
+        keyPassword = keystoreProperties["keyPassword"] as String,
+        storeFilePath = keystoreProperties["storeFilePath"] as String,
+        storePassword = keystoreProperties["storePassword"] as String
+    )
+}
+
 // To build release build you need to use this command:
 // ./gradlew :app:assembleRelease -PshouldEnableCrashlytics=true
 val shouldEnableCrashlytics: String? by project
@@ -28,16 +61,16 @@ android {
 
     signingConfigs {
         getByName("debug") {
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
-            storeFile = file("$rootDir/debug.keystore")
-            storePassword = "android"
+            keyAlias = defaultProjectSigningProperties.keyAlias
+            keyPassword = defaultProjectSigningProperties.keyPassword
+            storeFile = file(defaultProjectSigningProperties.storeFilePath)
+            storePassword = defaultProjectSigningProperties.storePassword
         }
         create("release") {
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
-            storeFile = file("$rootDir/debug.keystore")
-            storePassword = "android"
+            keyAlias = projectSigningProperties.keyAlias
+            keyPassword = projectSigningProperties.keyPassword
+            storeFile = file(projectSigningProperties.storeFilePath)
+            storePassword = projectSigningProperties.storePassword
         }
     }
 
