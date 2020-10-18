@@ -7,31 +7,6 @@ on:
     branches: [ master ]
 
 jobs:
-  restoreSecrets:
-    name: restoring release keystore, google json, passphrase
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@v2
-      - run: |
-          echo "creating gradle path"
-          mkdir ~/.gradle
-          touch ~/.gradle/yourRandomQuote.keystore
-          echo "finishing creating gradle path"
-
-          echo "creating app/release path"
-          mkdir app/release
-          touch app/release/google-services.json
-          echo "finishing creating app/release path"
-
-          echo "creating keystore"
-          echo "${{ secrets.RELEASE_KEYSTORE }}" > ~/release.keystore.asc
-          echo "finishing creating keystore"
-          echo "decode passphrase"
-          gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}" --batch ~/release.keystore.asc > ~/.gradle/yourRandomQuote.keystore
-          echo "finishing decoding passphrase"
-          echo "${{ secrets.GRADLE_PROPERTIES }}" > ~/.gradle/gradle.properties
-          echo "${{ secrets.GOOGLE_SERVICES_RELEASE }}" > app/release/google-services.json
-
   test:
     name: Run Unit Tests
     runs-on: ubuntu-latest
@@ -66,8 +41,27 @@ jobs:
   apk:
     name: Generate APK
     runs-on: ubuntu-18.04
-
     steps:
+      - uses: actions/checkout@v2
+      - run: |
+          echo "creating gradle path"
+          mkdir ~/.gradle
+          touch ~/.gradle/yourRandomQuote.keystore
+          echo "finishing creating gradle path"
+
+          echo "creating app/release path"
+          mkdir app/release
+          touch app/release/google-services.json
+          echo "finishing creating app/release path"
+
+          echo "creating keystore"
+          echo "${{ secrets.RELEASE_KEYSTORE }}" > ~/release.keystore.asc
+          echo "finishing creating keystore"
+          echo "decode passphrase"
+          gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}" --batch ~/release.keystore.asc > ~/.gradle/yourRandomQuote.keystore
+          echo "finishing decoding passphrase"
+          echo "${{ secrets.GRADLE_PROPERTIES }}" > ~/.gradle/gradle.properties
+          echo "${{ secrets.GOOGLE_SERVICES_RELEASE }}" > app/release/google-services.json
       - uses: actions/checkout@v1
       - name: set up JDK 1.8
         uses: actions/setup-java@v1
