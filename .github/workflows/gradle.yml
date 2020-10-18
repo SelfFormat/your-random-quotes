@@ -52,6 +52,8 @@ jobs:
           echo "creating empty json"
           touch app/src/release/google-services.json
           echo "finishing creating empty json"
+          echo "ls app/src/release :"
+          ls app/src/release
 
           echo "creating keystore"
           echo "${{ secrets.RELEASE_KEYSTORE }}" > ~/release.keystore.asc
