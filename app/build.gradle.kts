@@ -26,6 +26,7 @@ val defaultProjectSigningProperties =
 /*
 ** ~/.gradle/gradle.properties - this is globally accessible list of properties,
 ** this is place where you can put production keys, as it's not accessible from vcs.
+** by project - searches for properties in gradle.properties of project or global gradle.properties
 */
 
 val keyAlias: String? by project
@@ -33,7 +34,7 @@ val keyPassword: String? by project
 val storeFilePath: String? by project
 val storePassword: String? by project
 
-val gradlePropertiesPath: String? by project // searches for properties i gradle.properties of project or global gradle.properties
+val gradlePropertiesPath: String? by project
 val projectSigningProperties = if (gradlePropertiesPath != null) {
     logger.info("detected properties: $gradlePropertiesPath")
     val keystoreProperties = Properties()
@@ -44,7 +45,8 @@ val projectSigningProperties = if (gradlePropertiesPath != null) {
         storeFilePath = keystoreProperties["storeFilePath"] as String,
         storePassword = keystoreProperties["storePassword"] as String
     )
-} else if (keyAlias != null && keyPassword != null && storeFilePath != null && storePassword != null) {
+} else if (keyAlias != null && keyPassword != null &&
+    storeFilePath != null && storePassword != null) {
     ProjectSigningProperties(
             keyAlias = keyAlias as String,
             keyPassword = keyPassword as String,
