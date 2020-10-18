@@ -77,7 +77,6 @@ jobs:
           echo "done filling json"
 
           echo "creating gradle path"
-          mkdir ~/.gradle
           touch ~/.gradle/yourRandomQuote.keystore
           echo "finishing creating gradle path"
 
