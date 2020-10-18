@@ -34,6 +34,9 @@ val keyPassword: String? by project
 val storeFilePath: String? by project
 val storePassword: String? by project
 
+val prepertiesNotNull = keyAlias != null && keyPassword != null &&
+        storeFilePath != null && storePassword != null
+
 val gradlePropertiesPath: String? by project
 val projectSigningProperties = if (gradlePropertiesPath != null) {
     logger.info("detected properties: $gradlePropertiesPath")
@@ -45,8 +48,7 @@ val projectSigningProperties = if (gradlePropertiesPath != null) {
         storeFilePath = keystoreProperties["storeFilePath"] as String,
         storePassword = keystoreProperties["storePassword"] as String
     )
-} else if (keyAlias != null && keyPassword != null &&
-    storeFilePath != null && storePassword != null) {
+} else if (prepertiesNotNull) {
     ProjectSigningProperties(
             keyAlias = keyAlias as String,
             keyPassword = keyPassword as String,
