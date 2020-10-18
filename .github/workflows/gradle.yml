@@ -66,6 +66,7 @@ jobs:
           GOOGLE_SERVICES_RELEASE: ${{ secrets.GOOGLE_SERVICES_RELEASE }}
           GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
           RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
+          RELEASE_KEYSTORE_PASSPHRASE: ${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}
         run: |
           echo "creating empty json"
           touch app/src/release/google-services.json
@@ -81,10 +82,10 @@ jobs:
           echo "finishing creating gradle path"
 
           echo "creating keystore"
-          echo $RELEASE_KEYSTORE > ~/release.keystore.asc
+          echo "$RELEASE_KEYSTORE" > ~/release.keystore.asc
           echo "finishing creating keystore"
           echo "decode passphrase"
-          gpg -d --passphrase ${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }} --batch ~/release.keystore.asc > ~/.gradle/yourRandomQuote.keystore
+          gpg -d --passphrase "$RELEASE_KEYSTORE_PASSPHRASE" --batch ~/release.keystore.asc > ~/.gradle/yourRandomQuote.keystore
           echo "finishing decoding passphrase"
           echo $GRADLE_PROPERTIES > ~/.gradle/gradle.properties
 
