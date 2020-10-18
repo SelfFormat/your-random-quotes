@@ -23,18 +23,44 @@ val defaultProjectSigningProperties =
         storePassword = "android"
     )
 
+/*
+** ~/.gradle/gradle.properties - this is globally accessible list of properties,
+** this is place where you can put production keys, as it's not accessible from vcs.
+** by project - searches for properties in gradle.properties of project or global gradle.properties
+*/
+
+val keyAlias: String? by project
+val keyPassword: String? by project
+val storeFilePath: String? by project
+val storePassword: String? by project
+
+val propertiesNotNull = keyAlias != null && keyPassword != null &&
+        storeFilePath != null && storePassword != null
+
 val gradlePropertiesPath: String? by project
-val projectSigningProperties = if (gradlePropertiesPath == null) {
-    defaultProjectSigningProperties
-} else {
-    val keystoreProperties = Properties()
-    keystoreProperties.load(FileInputStream(gradlePropertiesPath!!))
-    ProjectSigningProperties(
-        keyAlias = keystoreProperties["keyAlias"] as String,
-        keyPassword = keystoreProperties["keyPassword"] as String,
-        storeFilePath = keystoreProperties["storeFilePath"] as String,
-        storePassword = keystoreProperties["storePassword"] as String
-    )
+val projectSigningProperties = when {
+    gradlePropertiesPath != null -> {
+        logger.info("detected properties: $gradlePropertiesPath")
+        val keystoreProperties = Properties()
+        keystoreProperties.load(FileInputStream(gradlePropertiesPath!!))
+        ProjectSigningProperties(
+            keyAlias = keystoreProperties["keyAlias"] as String,
+            keyPassword = keystoreProperties["keyPassword"] as String,
+            storeFilePath = keystoreProperties["storeFilePath"] as String,
+            storePassword = keystoreProperties["storePassword"] as String
+        )
+    }
+    propertiesNotNull -> {
+        ProjectSigningProperties(
+            keyAlias = keyAlias as String,
+            keyPassword = keyPassword as String,
+            storeFilePath = storeFilePath as String,
+            storePassword = storePassword as String
+        )
+    }
+    else -> {
+        defaultProjectSigningProperties
+    }
 }
 
 // To build release build you need to use this command:
