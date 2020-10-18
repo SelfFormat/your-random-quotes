@@ -76,6 +76,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Build release APK
+        env:
+          GOOGLE_SERVICES_RELEASE: ${{ secrets.GOOGLE_SERVICES_RELEASE }}
         run: |
           echo "creating empty json"
           touch app/src/release/google-services.json
@@ -83,7 +85,7 @@ jobs:
           echo "ls app/src/release :"
           ls app/src/release
           echo "filling json"
-          echo "${{ secrets.GOOGLE_SERVICES_RELEASE }}" > app/src/release/google-services.json
+          echo $GOOGLE_SERVICES_RELEASE > app/src/release/google-services.json
           echo "done filling json"
 
           bash ./gradlew assembleRelease --stacktrace
