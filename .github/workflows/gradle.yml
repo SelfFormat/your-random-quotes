@@ -49,10 +49,9 @@ jobs:
           touch ~/.gradle/yourRandomQuote.keystore
           echo "finishing creating gradle path"
 
-          echo "creating app/release path"
-          mkdir app/src/release
+          echo "creating empty json"
           touch app/src/release/google-services.json
-          echo "finishing creating app/release path"
+          echo "finishing creating empty json"
 
           echo "creating keystore"
           echo "${{ secrets.RELEASE_KEYSTORE }}" > ~/release.keystore.asc
