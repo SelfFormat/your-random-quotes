@@ -34,29 +34,33 @@ val keyPassword: String? by project
 val storeFilePath: String? by project
 val storePassword: String? by project
 
-val prepertiesNotNull = keyAlias != null && keyPassword != null &&
+val propertiesNotNull = keyAlias != null && keyPassword != null &&
         storeFilePath != null && storePassword != null
 
 val gradlePropertiesPath: String? by project
-val projectSigningProperties = if (gradlePropertiesPath != null) {
-    logger.info("detected properties: $gradlePropertiesPath")
-    val keystoreProperties = Properties()
-    keystoreProperties.load(FileInputStream(gradlePropertiesPath!!))
-    ProjectSigningProperties(
-        keyAlias = keystoreProperties["keyAlias"] as String,
-        keyPassword = keystoreProperties["keyPassword"] as String,
-        storeFilePath = keystoreProperties["storeFilePath"] as String,
-        storePassword = keystoreProperties["storePassword"] as String
-    )
-} else if (prepertiesNotNull) {
-    ProjectSigningProperties(
+val projectSigningProperties = when {
+    gradlePropertiesPath != null -> {
+        logger.info("detected properties: $gradlePropertiesPath")
+        val keystoreProperties = Properties()
+        keystoreProperties.load(FileInputStream(gradlePropertiesPath!!))
+        ProjectSigningProperties(
+            keyAlias = keystoreProperties["keyAlias"] as String,
+            keyPassword = keystoreProperties["keyPassword"] as String,
+            storeFilePath = keystoreProperties["storeFilePath"] as String,
+            storePassword = keystoreProperties["storePassword"] as String
+        )
+    }
+    propertiesNotNull -> {
+        ProjectSigningProperties(
             keyAlias = keyAlias as String,
             keyPassword = keyPassword as String,
             storeFilePath = storeFilePath as String,
             storePassword = storePassword as String
-    )
-} else {
-    defaultProjectSigningProperties
+        )
+    }
+    else -> {
+        defaultProjectSigningProperties
+    }
 }
 
 // To build release build you need to use this command:
