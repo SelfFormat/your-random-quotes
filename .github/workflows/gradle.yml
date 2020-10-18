@@ -7,6 +7,17 @@ on:
     branches: [ master ]
 
 jobs:
+  restoreSecrets:
+    name: restoring release keystore, google json, passphrase
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          echo "${{ secrets.RELEASE_KEYSTORE }}" > release.keystore.asc
+          gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}" --batch release.keystore.asc > ~/.gradle/yourRandomQuote.keystore
+          echo "${{ secrets.GRADLE_PROPERTIES }}" > ~/.gradle/gradle.properties
+          echo "${{ secrets.GOOGLE_SERVICES_RELEASE }}" > app/release/google-services.json
+
   test:
     name: Run Unit Tests
     runs-on: ubuntu-latest
@@ -62,10 +73,10 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Build debug APK
-        run: bash ./gradlew assembleDebug --stacktrace
+      - name: Build release APK
+        run: bash ./gradlew assembleRelease --stacktrace
       - name: Upload APK
         uses: actions/upload-artifact@v1
         with:
           name: app
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/release/app-release.apk

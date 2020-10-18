@@ -23,10 +23,19 @@ val defaultProjectSigningProperties =
         storePassword = "android"
     )
 
-val gradlePropertiesPath: String? by project
-val projectSigningProperties = if (gradlePropertiesPath == null) {
-    defaultProjectSigningProperties
-} else {
+/*
+** ~/.gradle/gradle.properties - this is globally accessible list of properties,
+** this is place where you can put production keys, as it's not accessible from vcs.
+*/
+
+val keyAlias: String? by project
+val keyPassword: String? by project
+val storeFilePath: String? by project
+val storePassword: String? by project
+
+val gradlePropertiesPath: String? by project // searches for properties i gradle.properties of project or global gradle.properties
+val projectSigningProperties = if (gradlePropertiesPath != null) {
+    logger.info("detected properties: $gradlePropertiesPath")
     val keystoreProperties = Properties()
     keystoreProperties.load(FileInputStream(gradlePropertiesPath!!))
     ProjectSigningProperties(
@@ -35,6 +44,15 @@ val projectSigningProperties = if (gradlePropertiesPath == null) {
         storeFilePath = keystoreProperties["storeFilePath"] as String,
         storePassword = keystoreProperties["storePassword"] as String
     )
+} else if (keyAlias != null && keyPassword != null && storeFilePath != null && storePassword != null) {
+    ProjectSigningProperties(
+            keyAlias = keyAlias as String,
+            keyPassword = keyPassword as String,
+            storeFilePath = storeFilePath as String,
+            storePassword = storePassword as String
+    )
+} else {
+    defaultProjectSigningProperties
 }
 
 // To build release build you need to use this command:
