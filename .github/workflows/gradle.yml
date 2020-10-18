@@ -89,7 +89,7 @@ jobs:
           echo "finishing decoding passphrase"
           echo $GRADLE_PROPERTIES > ~/.gradle/gradle.properties
 
-          bash ./gradlew assembleRelease --stacktrace
+          bash ./gradlew assembleRelease -PshouldEnableCrashlytics=true --stacktrace
       - name: Upload APK
         uses: actions/upload-artifact@v1
         with:
