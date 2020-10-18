@@ -67,6 +67,7 @@ jobs:
           GOOGLE_SERVICES_RELEASE: ${{ secrets.GOOGLE_SERVICES_RELEASE }}
           RELEASE_KEYSTORE_PASSPHRASE: ${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}
           RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
+          GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
         run: |
           echo "creating empty json"
           touch app/src/release/google-services.json
