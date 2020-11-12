@@ -3,7 +3,6 @@ package com.selfformat.yourrandomquote
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -123,10 +122,9 @@ class MainFragment : Fragment() {
     }
 
     companion object {
-        const val TAG = "MainFragment"
         const val SIGN_IN_RESULT_CODE = 1001
     }
 
     private fun navigateToAddQuoteFragment() =
-        Navigation.createNavigateOnClickListener(R.id.action_mainFragment_to_addQuoteFragment, null)
+        Navigation.createNavigateOnClickListener(R.id.action_mainFragment_to_quoteDetailsFragment, null)
 }
