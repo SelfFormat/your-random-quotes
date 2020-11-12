@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.selfformat.yourrandomquote.domain.DatabaseQuote
 import com.selfformat.yourrandomquote.domain.Quote
-import kotlinx.android.synthetic.main.add_quote_fragment.*
+import kotlinx.android.synthetic.main.quote_details_fragment.*
 
 class QuoteDetailsFragment : Fragment() {
 
