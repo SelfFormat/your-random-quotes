@@ -77,6 +77,10 @@ jobs:
           echo $GOOGLE_SERVICES_RELEASE > app/src/release/google-services.json
           echo "done filling json"
 
+          echo "creating gradle path"
+          touch ~/.gradle/yourRandomQuote.keystore
+          echo "finishing creating gradle path"
+
           echo "creating keystore"
           echo "$RELEASE_KEYSTORE" > ~/release.keystore.asc
           echo "finishing creating keystore"
