@@ -23,12 +23,11 @@ class LoginViewModel : ViewModel() {
     private var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     companion object {
-        const val TAG = "LoginViewModel"
         var uid: String? = null
     }
 
-    private val _quotes = MutableLiveData<List<Quote>>()
-    val quotes: LiveData<List<Quote>>
+    private val _quotes = MutableLiveData<Map<String, Quote>>()
+    val quotes: LiveData<Map<String, Quote>>
         get() = _quotes
 
     val authenticationState = FirebaseUserLiveData().map { user ->
@@ -39,7 +38,7 @@ class LoginViewModel : ViewModel() {
             AUTHENTICATED(user.uid)
         } else {
             uid = null
-            _quotes.value = emptyList()
+            _quotes.value = emptyMap()
             UNAUTHENTICATED
         }
     }
@@ -51,16 +50,16 @@ class LoginViewModel : ViewModel() {
 
     private fun getUsersRandomQuote(uid: String) {
         val quoteReference: DatabaseReference =
-            FirebaseDatabase.getInstance().reference.users().withID(uid).quotes()
+                FirebaseDatabase.getInstance().reference.users().withID(uid).quotes()
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val listOfQuotes = mutableListOf<Quote>()
+                val listOfQuotes = mutableMapOf<String, Quote>()
                 for (snapshot in dataSnapshot.children) {
                     val post = snapshot.getValue(Quote::class.java)
-                    listOfQuotes.add(post!!)
+                    listOfQuotes[snapshot.key!!] = post!!
                 }
-                _quotes.value = listOfQuotes
+                _quotes.value = listOfQuotes.toMap()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

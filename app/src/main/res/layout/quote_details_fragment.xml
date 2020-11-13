@@ -15,7 +15,7 @@
         android:layout_marginBottom="12dp"
         android:hint="@string/quote"
         app:errorEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/authorFirstNameTextField"
+        app:layout_constraintBottom_toTopOf="@+id/authorTextField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/authorFirstNameTextField"
+        android:id="@+id/authorTextField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         android:layout_marginRight="24dp"
         android:layout_marginBottom="12dp"
         android:hint="@string/author"
-        app:layout_constraintBottom_toTopOf="@+id/addQuoteButton"
+        app:layout_constraintBottom_toTopOf="@+id/saveQuoteButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,18 +53,34 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/addQuoteButton"
+        android:id="@+id/saveQuoteButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="24dp"
-        android:text="@string/add_quote"
+        android:text="@string/save_quote"
+        app:layout_constraintBottom_toTopOf="@id/removeQuoteButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authorTextField"/>
+
+    <Button
+        android:id="@+id/removeQuoteButton"
+        android:background="@color/red_600"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/remove_quote"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/authorFirstNameTextField"/>
+        app:layout_constraintTop_toBottomOf="@+id/saveQuoteButton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

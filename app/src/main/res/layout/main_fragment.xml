@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="24dp"
-        android:contentDescription="@string/add_quote"
+        android:contentDescription="@string/add_quote_icon_description"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
