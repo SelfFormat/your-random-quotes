@@ -1,0 +1,28 @@
+apply plugin: "com.vanniktech.android.junit.jacoco"
+
+junitJacoco {
+    jacocoVersion = '0.8.5'
+    ignoreProjects = []
+    excludes += [
+            "**/*Binding*.*",
+            "**/Hilt_*.*",
+            "**/*ModuleDeps*.*",
+            "**/*Binder*.*",
+            "**/*Realm*.*",
+            "**/*_AssistedFactory*.*",
+    ]
+    includeNoLocationClasses = true
+}
+task("jacocoThreshold", type: JacocoCoverageVerification, dependsOn: "jacocoTestReportMerged") {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.001
+            }
+        }
+    }
+    executionData tasks.mergeJacocoReports.destinationFile
+    sourceDirectories.from = tasks.jacocoTestReportMerged.sourceDirectories
+    additionalSourceDirs.from = tasks.jacocoTestReportMerged.additionalSourceDirs
+    classDirectories.from = tasks.jacocoTestReportMerged.classDirectories
+}
