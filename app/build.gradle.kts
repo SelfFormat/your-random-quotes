@@ -135,6 +135,8 @@ dependencies {
 
     // Tests
     testImplementation("junit:junit:$JUNIT_VERSION")
+    testImplementation("org.mockito:mockito-inline:$MOCKITO_INLINE_VERSION")
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:$MOCKITO_VERSION")
     androidTestImplementation("androidx.test.ext:junit:$ANDROIDX_JUNIT_VERSION")
     androidTestImplementation("androidx.test.espresso:espresso-core:$ESPRESSO_VERSION")
 

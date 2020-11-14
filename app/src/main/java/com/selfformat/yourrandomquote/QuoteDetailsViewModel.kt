@@ -8,9 +8,11 @@ import com.google.firebase.database.users
 import com.google.firebase.database.withID
 import com.selfformat.yourrandomquote.domain.DatabaseQuote
 
-class QuoteDetailsViewModel : ViewModel() {
+class QuoteDetailsViewModel(private val database: DatabaseReference) : ViewModel() {
 
-    private var database: DatabaseReference = FirebaseDatabase.getInstance().reference
+    constructor() : this(
+        FirebaseDatabase.getInstance().reference
+    )
 
     fun addQuote(uid: String, databaseQuote: DatabaseQuote) {
         database.users().withID(uid).quotes().push().setValue(databaseQuote)

@@ -32,7 +32,6 @@ class QuoteDetailsFragment : Fragment() {
         } else {
             editQuoteLayout(quote, id)
         }
-
     }
 
     private fun editQuoteLayout(quote: Quote, id: String) {

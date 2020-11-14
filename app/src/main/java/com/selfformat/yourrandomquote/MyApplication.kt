@@ -7,7 +7,7 @@ import org.koin.core.context.startKoin
 import timber.log.Timber
 
 class MyApplication : Application() {
-    override fun onCreate(){
+    override fun onCreate() {
         super.onCreate()
         Timber.plant(CrashReportingTree())
         startKoin {
