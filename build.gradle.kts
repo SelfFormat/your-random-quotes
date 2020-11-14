@@ -28,5 +28,3 @@ tasks.register("clean", Delete::class) {
 }
 
 apply(from = "$rootDir/jacoco_coverage.gradle")
-
-apply(from = "$rootDir/jacoco_coverage.gradle")
